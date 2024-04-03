@@ -60,7 +60,7 @@ namespace fav
 
         /*Most significant bit value.
         Example: uint8 = 128. */
-        static constexpr Value_t VALUE_MSBIT = ~(MASK_ALL >> 1u);
+        static constexpr Value_t VALUE_MSBIT = ~(MASK_ALL >> 1u); //NUM_1 << (NUM_BITS - 1u);
 
         /*Mask all but not less significant bit.
         Example: uint8 = 0b11111110. */
@@ -76,13 +76,13 @@ namespace fav
         static constexpr bool IS_64BIT = (NUM_BYTES == 8u);
 
         //Suppress warning C4333 '>>': right shift by too large amount, data loss
-#pragma warning(push)
-#pragma warning(disable: 4333)
+//#pragma warning(push)
+//#pragma warning(disable: 4333)
         static constexpr Value_t MASK_LSBYTE_0x0F = NUM_0F;
-        static constexpr Value_t MASK_MSBYTE_0xF0 = ~(MASK_ALL >> 4u); //NUM_0F << (NUM_BITS - 4u)
+        static constexpr Value_t MASK_MSBYTE_0xF0 = NUM_0F << (NUM_BITS - 4u); //~(MASK_ALL >> 4u); //NUM_0F << (NUM_BITS - 4u);
         static constexpr Value_t MASK_LSBYTE_0xFF = NUM_FF;
-        static constexpr Value_t MASK_MSBYTE_0xFF = IS_8BIT ? NUM_FF : ~(MASK_ALL >> 8u); //NUM_FF << (NUM_BITS - 8u)
-#pragma warning(pop)
+        static constexpr Value_t MASK_MSBYTE_0xFF = NUM_FF << (NUM_BITS - 8u); //IS_8BIT ? NUM_FF : ~(MASK_ALL >> 8u); //NUM_FF << (NUM_BITS - 8u);
+//#pragma warning(pop)
 
 
 
@@ -146,14 +146,14 @@ namespace fav
             return pos >= NUM_BITS;
         }
 
-        static inline constexpr bool is_even(Value_t value) noexcept
+        static inline constexpr bool is_odd(Value_t value) noexcept
         {
             return (value & NUM_1);
         }
 
-        static inline constexpr bool is_odd(Value_t value) noexcept
+        static inline constexpr bool is_even(Value_t value) noexcept
         {
-            return !(value & NUM_1);
+            return !is_odd(value);
         }
 
         /*Bit value.
@@ -174,6 +174,8 @@ namespace fav
         }
 
     };//Bitparams
+
+
 
 }//fav
 

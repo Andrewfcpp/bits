@@ -2,18 +2,9 @@
 #include "tests/tests.h"
 
 #include <iostream>
+#include <cstdlib>
 #include <cstddef>
 #include <cstdint>
-
-
-
-void test()
-{
-    using Bp_t = fav::Bitparams<std::uint32_t>;
-    //Bp_t bp;
-    constexpr auto x = Bp_t::IS_8BIT;
-
-}
 
 
 
@@ -23,12 +14,13 @@ int main(/*int argc, char** argv*/)
 
 
 
+    //Run all tests.
     DOCTEST_RUN;
     std::cout << '\n' << '\n';
 
-    test();
 
-    std::cout << '\n' << '\n' << "Press any key to exit." << '\n' << '\n';
-    std::cin.get();
+
+    std::cout << '\n' << '\n' << "Bye, bye!" << '\n' << '\n';
+    system("pause 0"); //std::cin.get();
     return 0;
 }
