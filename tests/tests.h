@@ -46,7 +46,7 @@ void doctest_run()
 #include <cstdint>
 
 #include "include/Bitparams.h"
-
+#include "include/Bithelpers.h"
 
 
 //***********************************************************************/
@@ -57,8 +57,7 @@ void doctest_run()
 
 
 
-#if 0
-TEST_CASE("Testing Bitparams 8 bit")
+TEST_CASE("Testing Bitparams uint8_t")
 {
     using Bp_t = fav::Bitparams<std::uint8_t>;
 
@@ -102,13 +101,13 @@ TEST_CASE("Testing Bitparams 8 bit")
     CHECK(Bp_t::is_clear_msbit(0xFFu) == false);
     CHECK(Bp_t::is_clear_msbit(0x7Fu) == true);
 
-    CHECK(Bp_t::is_valid_pos(0u) == true);
-    CHECK(Bp_t::is_valid_pos(7u) == true);
-    CHECK(Bp_t::is_valid_pos(8u) == false);
+    CHECK(Bp_t::is_valid_bitnum(0u) == true);
+    CHECK(Bp_t::is_valid_bitnum(7u) == true);
+    CHECK(Bp_t::is_valid_bitnum(8u) == false);
 
-    CHECK(Bp_t::is_invalid_pos(0u) == false);
-    CHECK(Bp_t::is_invalid_pos(7u) == false);
-    CHECK(Bp_t::is_invalid_pos(8u) == true);
+    CHECK(Bp_t::is_invalid_bitnum(0u) == false);
+    CHECK(Bp_t::is_invalid_bitnum(7u) == false);
+    CHECK(Bp_t::is_invalid_bitnum(8u) == true);
 
     CHECK(Bp_t::is_even(0xFEu) == true);
     CHECK(Bp_t::is_even(0xFFu) == false);
@@ -127,12 +126,10 @@ TEST_CASE("Testing Bitparams 8 bit")
     CHECK(Bp_t::bit_mask(8u) == 0xFFu);
 
 }
-#endif
 
 
 
-#if 0
-TEST_CASE("Testing Bitparams 16 bit")
+TEST_CASE("Testing Bitparams uint16_t")
 {
     using Bp_t = fav::Bitparams<std::uint16_t>;
 
@@ -176,13 +173,13 @@ TEST_CASE("Testing Bitparams 16 bit")
     CHECK(Bp_t::is_clear_msbit(0xFFFEu) == false);
     CHECK(Bp_t::is_clear_msbit(0x7FFFu) == true);
 
-    CHECK(Bp_t::is_valid_pos(0u) == true);
-    CHECK(Bp_t::is_valid_pos(15u) == true);
-    CHECK(Bp_t::is_valid_pos(16u) == false);
+    CHECK(Bp_t::is_valid_bitnum(0u) == true);
+    CHECK(Bp_t::is_valid_bitnum(15u) == true);
+    CHECK(Bp_t::is_valid_bitnum(16u) == false);
 
-    CHECK(Bp_t::is_invalid_pos(0u) == false);
-    CHECK(Bp_t::is_invalid_pos(15u) == false);
-    CHECK(Bp_t::is_invalid_pos(16u) == true);
+    CHECK(Bp_t::is_invalid_bitnum(0u) == false);
+    CHECK(Bp_t::is_invalid_bitnum(15u) == false);
+    CHECK(Bp_t::is_invalid_bitnum(16u) == true);
 
     CHECK(Bp_t::is_even(0xFFFEu) == true);
     CHECK(Bp_t::is_even(0xFFFFu) == false);
@@ -201,11 +198,10 @@ TEST_CASE("Testing Bitparams 16 bit")
     CHECK(Bp_t::bit_mask(16u) == 0xFFFFu);
 
 }
-#endif
 
 
 
-TEST_CASE("Testing Bitparams 32 bit")
+TEST_CASE("Testing Bitparams uint32_t")
 {
     using Bp_t = fav::Bitparams<std::uint32_t>;
 
@@ -249,13 +245,13 @@ TEST_CASE("Testing Bitparams 32 bit")
     CHECK(Bp_t::is_clear_msbit(0xFFFFFFFEu) == false);
     CHECK(Bp_t::is_clear_msbit(0x7FFFFFFFu) == true);
 
-    CHECK(Bp_t::is_valid_pos(0u) == true);
-    CHECK(Bp_t::is_valid_pos(31u) == true);
-    CHECK(Bp_t::is_valid_pos(32u) == false);
+    CHECK(Bp_t::is_valid_bitnum(0u) == true);
+    CHECK(Bp_t::is_valid_bitnum(31u) == true);
+    CHECK(Bp_t::is_valid_bitnum(32u) == false);
 
-    CHECK(Bp_t::is_invalid_pos(0u) == false);
-    CHECK(Bp_t::is_invalid_pos(31u) == false);
-    CHECK(Bp_t::is_invalid_pos(32u) == true);
+    CHECK(Bp_t::is_invalid_bitnum(0u) == false);
+    CHECK(Bp_t::is_invalid_bitnum(31u) == false);
+    CHECK(Bp_t::is_invalid_bitnum(32u) == true);
 
     CHECK(Bp_t::is_even(0xFFFFFFFEu) == true);
     CHECK(Bp_t::is_even(0xFFFFFFFFu) == false);
@@ -280,7 +276,7 @@ TEST_CASE("Testing Bitparams 32 bit")
 //Check 64 bit platform
 #if INTPTR_MAX == INT64_MAX 
 
-TEST_CASE("Testing Bitparams 64 bit")
+TEST_CASE("Testing Bitparams uint64_t")
 {
     using Bp_t = fav::Bitparams<std::uint64_t>;
 
@@ -324,13 +320,13 @@ TEST_CASE("Testing Bitparams 64 bit")
     CHECK(Bp_t::is_clear_msbit(0xFFFFFFFFFFFFFFFEull) == false);
     CHECK(Bp_t::is_clear_msbit(0x7FFFFFFFFFFFFFFFull) == true);
 
-    CHECK(Bp_t::is_valid_pos(0u) == true);
-    CHECK(Bp_t::is_valid_pos(63u) == true);
-    CHECK(Bp_t::is_valid_pos(64u) == false);
+    CHECK(Bp_t::is_valid_bitnum(0u) == true);
+    CHECK(Bp_t::is_valid_bitnum(63u) == true);
+    CHECK(Bp_t::is_valid_bitnum(64u) == false);
 
-    CHECK(Bp_t::is_invalid_pos(0u) == false);
-    CHECK(Bp_t::is_invalid_pos(63u) == false);
-    CHECK(Bp_t::is_invalid_pos(64u) == true);
+    CHECK(Bp_t::is_invalid_bitnum(0u) == false);
+    CHECK(Bp_t::is_invalid_bitnum(63u) == false);
+    CHECK(Bp_t::is_invalid_bitnum(64u) == true);
 
     CHECK(Bp_t::is_even(0xFFFFFFFFFFFFFFFEull) == true);
     CHECK(Bp_t::is_even(0xFFFFFFFFFFFFFFFFull) == false);
@@ -351,6 +347,54 @@ TEST_CASE("Testing Bitparams 64 bit")
 }
 
 #endif //Check 64 bit platform
+
+
+
+//***********************************************************************/
+
+
+
+TEST_CASE("Testing Bithelpers")
+{
+    using Bh_t = fav::Bithelpers;
+    using U8_t = std::uint8_t;
+    using U16_t = std::uint16_t;
+    using U32_t = std::uint32_t;
+    using U64_t = std::uint64_t;
+
+    CHECK(Bh_t::bits_reverse<U8_t>(0xF1u) == 0x8Fu);
+    CHECK(Bh_t::bits_reverse<U16_t>(0xF0F1u) == 0x8F0Fu);
+    CHECK(Bh_t::bits_reverse<U32_t>(0xF0F0FF01u) == 0x80FF0F0Fu);
+    CHECK(Bh_t::bits_reverse<U64_t>(0xF0F0FF00FF00FFF1ull) == 0x8FFF00FF00FF0F0Full);
+
+    CHECK(Bh_t::mask_for<U8_t>(0x10u) == 0x1Fu);
+    CHECK(Bh_t::mask_for<U16_t>(0x0102u) == 0x01FFu);
+    CHECK(Bh_t::mask_for<U32_t>(0x01020304u) == 0x01FFFFFFu);
+    CHECK(Bh_t::mask_for<U64_t>(0x0102030405060708ull) == 0x01FFFFFFFFFFFFFFull);
+
+    CHECK(Bh_t::count_pop<U32_t>(0x00000001u) == 1u);
+    CHECK(Bh_t::count_pop<U32_t>(0xFFFFFFFFu) == 32u);
+    CHECK(Bh_t::count_pop<U32_t>(0x55555555u) == 16u);
+
+    CHECK(Bh_t::count_pop<U64_t>(0x0000000000000001ull) == 1u);
+    CHECK(Bh_t::count_pop<U64_t>(0xFFFFFFFFFFFFFFFFull) == 64u);
+    CHECK(Bh_t::count_pop<U64_t>(0x5555555555555555ull) == 32u);
+
+    CHECK(Bh_t::count_zeros<U32_t>(0x10203040u) == 27u);
+    CHECK(Bh_t::count_zeros<U64_t>(0xF0F0F0F0F0F0F0F0ull) == 32u);
+
+    CHECK(Bh_t::count_lead_zeros<U32_t>(0x0000FFFFu) == 16u);
+    CHECK(Bh_t::count_lead_zeros<U64_t>(0x0FFFFFFFFFFFFFFFull) == 4u);
+
+    CHECK(Bh_t::count_trail_zeros<U8_t>(0xF0u) == 4u);
+    CHECK(Bh_t::count_trail_zeros<U16_t>(0xFF00u) == 8u);
+    CHECK(Bh_t::count_trail_zeros<U32_t>(0xFFFF0000u) == 16u);
+    CHECK(Bh_t::count_trail_zeros<U64_t>(0xF000000000000000ull) == 60u);
+
+    
+
+
+}
 
 
 
