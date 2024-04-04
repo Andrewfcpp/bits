@@ -24,39 +24,6 @@ namespace fav
 
 
 
-        /*Boolean NOT, invert all bits.
-        0b11110101 value
-        0b00001010 result */
-        template<typename T, typename = enable_if_unsigned_t<T>>
-        static inline constexpr T bits_invert(T v) noexcept { return ~v; }
-
-        /*Boolean AND
-        0b10101010 value a
-        0b00110011 value b
-        0b00100010 result */
-        template<typename T, typename = enable_if_unsigned_t<T>>
-        static inline constexpr T bits_and(T a, T b) noexcept { return a & b; }
-
-        /*Boolean OR
-        0b10101010 value a
-        0b00110011 value b
-        0b10111011 result */
-        template<typename T, typename = enable_if_unsigned_t<T>>
-        static inline constexpr T bits_or(T a, T b) noexcept { return a | b; }
-
-        /*Boolean XOR
-        0b10101010 value a
-        0b00110011 value b
-        0b10011001 result */
-        template<typename T, typename = enable_if_unsigned_t<T>>
-        static inline constexpr T bits_xor(T a, T b) noexcept { return a ^ b; }
-
-
-
-        //************************************************************************/
-
-
-
         /*Reverse bits
         0b11110101 value
         0b10101111 return*/
