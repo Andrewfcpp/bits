@@ -418,7 +418,11 @@ TEST_CASE("Testing Bithelpers")
     CHECK(Bh_t::find_trail_one<U32_t>(0x00F00000u) == 20u);
     CHECK(Bh_t::find_trail_one<U64_t>(0x0000F00000000000ull) == 44u);
 
+    CHECK(Bh_t::find_lead_zero<U32_t>(0xFF0000FFu) == 23u);
+    CHECK(Bh_t::find_lead_zero<U64_t>(0xFFFF00000000FFFFull) == 47u);
 
+    CHECK(Bh_t::find_trail_zero<U32_t>(0xFF0000FFu) == 8u);
+    CHECK(Bh_t::find_trail_zero<U64_t>(0xFFFF00000000FFFFull) == 16u);
 
 
 }

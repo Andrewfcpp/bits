@@ -520,12 +520,11 @@ namespace fav
         template<typename T, typename = enable_if_unsigned_t<T>>
         static Size_t find_lead_zero(T v) noexcept
         {
-            static_assert(0, "Error! Not implemented.");
             using Bp_t = Bitparams<T>;
-            if (Bp_t::is_set_all()) { return Bp_t::NUM_BITS; }
-            if (Bp_t::is_clear_msbit()) { return Bp_t::NUM_MSBIT; }
-
-            //TODO
+            if (Bp_t::is_set_all(v)) { return Bp_t::NUM_BITS; }
+            if (Bp_t::is_clear_msbit(v)) { return Bp_t::NUM_MSBIT; }
+            v = ~v;
+            return Bp_t::NUM_MSBIT - count_lead_zeros(v);
         }
 
 
@@ -538,12 +537,11 @@ namespace fav
         template<typename T>
         static Size_t find_trail_zero(T v) noexcept
         {
-            static_assert(0, "Error! Not implemented.");
             using Bp_t = Bitparams<T>;
+            if (Bp_t::is_set_all(v)) { return Bp_t::NUM_BITS; }
             if (Bp_t::is_clear_lsbit(v)) { return Bp_t::NUM_LSBIT; }
-            if (Bp_t::is_set_all(v)) { return Bp_t::NUM_MSBIT; }
-
-            //TODO
+            v = ~v;
+            return count_trail_zeros(v);
         }
 
     }; //Bithelpers
