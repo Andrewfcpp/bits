@@ -30,7 +30,7 @@ void doctest_run()
 
     context.setOption("no-intro", true); //Doctest version etc.
     context.setOption("duration", true); //Print name and test time
-    //context.setOption("success", true); //Print test details
+    context.setOption("success", true); //Print test details
     context.setOption("no-path-filenames", true);
     context.setOption("no-breaks", true); // don't break in the debugger when assertions fail
     context.setOption("no-debug-output", true); //Disables output in the debug console when a debugger is attached
@@ -47,14 +47,12 @@ void doctest_run()
 
 
 //***********************************************************************/
-
 //TEST SECTION
-
 //***********************************************************************/
 
 
 
-TEST_CASE("Testing Bitparams uint8_t")
+TEST_CASE("Testing Bitparams uint8")
 {
     
     using Bp_t = fav::Bitparams<std::uint8_t>;
@@ -127,7 +125,7 @@ TEST_CASE("Testing Bitparams uint8_t")
 
 
 
-TEST_CASE("Testing Bitparams uint16_t")
+TEST_CASE("Testing Bitparams uint16")
 {
     using Bp_t = fav::Bitparams<std::uint16_t>;
 
@@ -199,7 +197,7 @@ TEST_CASE("Testing Bitparams uint16_t")
 
 
 
-TEST_CASE("Testing Bitparams uint32_t")
+TEST_CASE("Testing Bitparams uint32")
 {
     using Bp_t = fav::Bitparams<std::uint32_t>;
 
@@ -274,7 +272,7 @@ TEST_CASE("Testing Bitparams uint32_t")
 //Check for 64 bit platform
 #if INTPTR_MAX == INT64_MAX 
 
-TEST_CASE("Testing Bitparams uint64_t")
+TEST_CASE("Testing Bitparams uint64")
 {
     using Bp_t = fav::Bitparams<std::uint64_t>;
 
@@ -417,6 +415,31 @@ TEST_CASE("Testing Bithelpers")
 
 }
 
+
+
+TEST_CASE("Testing Bitmanip")
+{
+    using Bm_t = fav::Bitmanip<std::uint32_t>;
+
+    CHECK(Bm_t::to_bool(0u) == false);
+    CHECK(Bm_t::to_bool(0x11223341u) == true);
+
+
+
+
+
+
+
+
+
+    //Check for 64 bit platform
+#if INTPTR_MAX == INT64_MAX 
+
+
+
+#endif
+
+}
 
 
 #endif

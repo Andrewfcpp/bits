@@ -48,39 +48,40 @@ namespace fav
         static constexpr Size_t MASK_NUM_BITS = NUM_BITS - NUM_1;
 
         /*Less significant bit number. Always 0. */
-        static constexpr Size_t NUM_LSBIT = NUM_0;
+        static constexpr Size_t NUM_BIT_LS = NUM_0;
 
         /*Most significant bit number.
         Example: uint32 = 31 bit.*/
-        static constexpr Size_t NUM_MSBIT = NUM_BITS - NUM_1;
+        static constexpr Size_t NUM_BIT_MS = NUM_BITS - NUM_1;
 
         /*Less significant bit value. Always = 1. */
-        static constexpr Value_t VALUE_LSBIT = NUM_1;
+        static constexpr Value_t VALUE_BIT_LS = NUM_1;
 
         /*Most significant bit value.
         Example: uint8 = 128. */
-        static constexpr Value_t VALUE_MSBIT = NUM_1 << (NUM_BITS - 1u);
+        static constexpr Value_t VALUE_BIT_MS = NUM_1 << (NUM_BITS - 1u);
 
         /*Mask all but not less significant bit.
         Example: uint8 = 0b11111110. */
-        static constexpr Value_t MASK_LSBIT = ~VALUE_LSBIT;
+        static constexpr Value_t MASK_BIT_LS = ~VALUE_LSBIT;
 
         /*Mask all but not most significant bit.
         Example: uint8 = 0b01111111. */
-        static constexpr Value_t MASK_MSBIT = ~VALUE_MSBIT;
+        static constexpr Value_t MASK_BIT_MS = ~VALUE_MSBIT;
 
         static constexpr bool IS_8BIT  = (NUM_BYTES == 1u);
         static constexpr bool IS_16BIT = (NUM_BYTES == 2u);
         static constexpr bool IS_32BIT = (NUM_BYTES == 4u);
         static constexpr bool IS_64BIT = (NUM_BYTES == 8u);
 
-        static constexpr Value_t MASK_LSBYTE_0x0F = NUM_0F;
-        static constexpr Value_t MASK_MSBYTE_0xF0 = NUM_0F << (NUM_BITS - 4u);
-        static constexpr Value_t MASK_LSBYTE_0xFF = NUM_FF;
-        static constexpr Value_t MASK_MSBYTE_0xFF = NUM_FF << (NUM_BITS - 8u);
+        static constexpr Value_t MASK_BYTE_LS_0x0F = NUM_0F;
+        static constexpr Value_t MASK_BYTE_MS_0xF0 = NUM_0F << (NUM_BITS - 4u);
+        static constexpr Value_t MASK_BYTE_LS_0xFF = NUM_FF;
+        static constexpr Value_t MASK_BYTE_MS_0xFF = NUM_FF << (NUM_BITS - 8u);
 
 
 
+#if 0
         /*Test if any bit is set to 1.*/
         static inline constexpr bool is_set_any(Value_t value) noexcept
         {
@@ -143,7 +144,8 @@ namespace fav
 
         static inline constexpr bool is_odd(Value_t value) noexcept
         {
-            return static_cast<bool>(value & NUM_1);
+            return (value & NUM_1) == NUM_0 ? false : true;
+            //return static_cast<bool>(value & NUM_1);
         }
 
         static inline constexpr bool is_even(Value_t value) noexcept
@@ -168,7 +170,7 @@ namespace fav
         {
             return ~(bit_value(bitnum));
         }
-
+#endif
 
 
     };//Bitparams

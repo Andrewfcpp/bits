@@ -10,8 +10,8 @@
 #include <utility>
 
 #include "Bitparams.h"
-#include "Bithelpers.h"
 #include "Bitmanip.h"
+#include "Bithelpers.h"
 
 
 

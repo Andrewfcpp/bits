@@ -6,6 +6,7 @@
 #ifndef BITHELPERS_H
 #define BITHELPERS_H
 
+//#include "Bitmanip.h"
 
 
 
@@ -437,7 +438,7 @@ namespace fav
 
 
 
-        /** Find first lead bit that is set to 1
+        /*Find first lead bit that is set to 1
         0b00000000 returns >= Bitparams<T>::NUM_BITS = wrong value, bit not found.
         0b00000001 returns 0
         0b00101000 returns 5
@@ -457,7 +458,7 @@ namespace fav
 
 
 
-        /** Find first trail bit that is set to 1
+        /*Find first trail bit that is set to 1
         0b00000000 returns >= Bitparams<T>::NUM_BITS = wrong value, bit not found.
         0b00000001 returns 0
         0b00101000 returns 3
@@ -473,7 +474,7 @@ namespace fav
 
 
 
-        /** Find first lead bit that is set to 0
+        /*Find first lead bit that is set to 0
         0b00000000 returns 7
         0b11111110 returns 0
         0b11010111 returns 5
@@ -490,7 +491,7 @@ namespace fav
 
 
 
-        /** Find first trail bit that is set to 0
+        /*Find first trail bit that is set to 0
         0b00000000 returns 7
         0b11111110 returns 0
         0b11010111 returns 3
