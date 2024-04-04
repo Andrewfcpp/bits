@@ -1,3 +1,5 @@
+// Some ideas was taken from Bit Twiddling Hacks
+// https://graphics.stanford.edu/~seander/bithacks.html ;
 
 #ifdef _MSC_VER
 #pragma once
@@ -6,17 +8,17 @@
 #ifndef BITHELPERS_H
 #define BITHELPERS_H
 
-#include <cstddef>
-#include <cstdint>
-#include <utility>
-#include "Bitparams.h"
+//#include <cstddef>
+//#include <cstdint>
+//#include <utility>
+//#include "Bitparams.h"
 
 
 
 namespace fav
 {
 
-    /*Misc bit twiddling functions.*/
+    /*Misc unsigned int bit twiddling functions.*/
     class Bithelpers
     {
     private:
@@ -66,18 +68,18 @@ namespace fav
         0b11110101 value
         0b10101111 return*/
         template<typename T, typename = enable_if_unsigned_t<T>>
-        static T bits_reverse(T) noexcept
+        static T reverse(T) noexcept
         {
             static_assert(0, "Error! Not implemented.");
             return{};
         }
 
         template<>
-        static std::uint8_t bits_reverse(std::uint8_t v) noexcept
+        static std::uint8_t reverse(std::uint8_t v) noexcept
         {
             using Bp_t = Bitparams<std::uint8_t>;
-            if (Bp_t::is_clear_all(v)) { return 0u; }
-            if (Bp_t::is_set_all(v)) { return Bp_t::MASK_ALL; }
+            if (Bp_t::is_clear_all(v)) { return v; }
+            if (Bp_t::is_set_all(v)) { return v; }
 
             v = ((v >> 1) & 0x55u) | ((v << 1) & 0xAAu);
             v = ((v >> 2) & 0x33u) | ((v << 2) & 0xCCu);
@@ -86,11 +88,11 @@ namespace fav
         }
 
         template<>
-        static std::uint16_t bits_reverse(std::uint16_t v) noexcept
+        static std::uint16_t reverse(std::uint16_t v) noexcept
         {
             using Bp_t = Bitparams<std::uint16_t>;
-            if (Bp_t::is_clear_all(v)) { return 0u; }
-            if (Bp_t::is_set_all(v)) { return Bp_t::MASK_ALL; }
+            if (Bp_t::is_clear_all(v)) { return v; }
+            if (Bp_t::is_set_all(v)) { return v; }
 
             v = ((v >> 1) & 0x5555u) | ((v << 1) & 0xAAAAu);
             v = ((v >> 2) & 0x3333u) | ((v << 2) & 0xCCCCu);
@@ -100,11 +102,11 @@ namespace fav
         }
 
         template<>
-        static std::uint32_t bits_reverse(std::uint32_t v) noexcept
+        static std::uint32_t reverse(std::uint32_t v) noexcept
         {
             using Bp_t = Bitparams<std::uint32_t>;
-            if (Bp_t::is_clear_all(v)) { return 0u; }
-            if (Bp_t::is_set_all(v)) { return Bp_t::MASK_ALL; }
+            if (Bp_t::is_clear_all(v)) { return v; }
+            if (Bp_t::is_set_all(v)) { return v; }
 
             v = ((v >> 1)  & 0x55555555u) | ((v << 1)  & 0xAAAAAAAAu);
             v = ((v >> 2)  & 0x33333333u) | ((v << 2)  & 0xCCCCCCCCu);
@@ -115,11 +117,11 @@ namespace fav
         }
 
         template<>
-        static std::uint64_t bits_reverse(std::uint64_t v) noexcept
+        static std::uint64_t reverse(std::uint64_t v) noexcept
         {
             using Bp_t = Bitparams<std::uint64_t>;
-            if (Bp_t::is_clear_all(v)) { return 0ull; }
-            if (Bp_t::is_set_all(v)) { return Bp_t::MASK_ALL; }
+            if (Bp_t::is_clear_all(v)) { return v; }
+            if (Bp_t::is_set_all(v)) { return v; }
 
             v = ((v >> 1)  & 0x5555555555555555ull) | ((v << 1)  & 0xAAAAAAAAAAAAAAAAull);
             v = ((v >> 2)  & 0x3333333333333333ull) | ((v << 2)  & 0xCCCCCCCCCCCCCCCCull);
@@ -136,8 +138,7 @@ namespace fav
 
 
 
-        //min_mask
-        /*Returns closest mask for value.*/
+        /*Returns closest min mask for value.*/
         template<typename T, typename = enable_if_unsigned_t<T>>
         static T mask_for(T) noexcept
         {
@@ -534,7 +535,7 @@ namespace fav
         0b11111110 returns 0
         0b11010111 returns 3
         0b11111111 returns >= Bitparams<T>::NUM_BITS = wrong value, bit not found. */
-        template<typename T>
+        template<typename T, typename = enable_if_unsigned_t<T>>
         static Size_t find_trail_zero(T v) noexcept
         {
             using Bp_t = Bitparams<T>;

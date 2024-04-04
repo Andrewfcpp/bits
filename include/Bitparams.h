@@ -6,9 +6,9 @@
 #ifndef BITPARAMS_H
 #define BITPARAMS_H
 
-#include <cstddef>
-#include <cstdint>
-#include <utility>
+//#include <cstddef>
+//#include <cstdint>
+//#include <utility>
 
 namespace fav
 {

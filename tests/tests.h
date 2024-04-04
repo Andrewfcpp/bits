@@ -42,11 +42,12 @@ void doctest_run()
 
 
 /** User includes */
-#include <cstddef>
-#include <cstdint>
+//#include <cstddef>
+//#include <cstdint>
 
-#include "include/Bitparams.h"
-#include "include/Bithelpers.h"
+//#include "include/Bitparams.h"
+//#include "include/Bithelpers.h"
+#include "bits.h"
 
 
 //***********************************************************************/
@@ -362,10 +363,10 @@ TEST_CASE("Testing Bithelpers")
     using U32_t = std::uint32_t;
     using U64_t = std::uint64_t;
 
-    CHECK(Bh_t::bits_reverse<U8_t>(0xF1u) == 0x8Fu);
-    CHECK(Bh_t::bits_reverse<U16_t>(0xF0F1u) == 0x8F0Fu);
-    CHECK(Bh_t::bits_reverse<U32_t>(0xF0F0FF01u) == 0x80FF0F0Fu);
-    CHECK(Bh_t::bits_reverse<U64_t>(0xF0F0FF00FF00FFF1ull) == 0x8FFF00FF00FF0F0Full);
+    CHECK(Bh_t::reverse<U8_t>(0xF1u) == 0x8Fu);
+    CHECK(Bh_t::reverse<U16_t>(0xF0F1u) == 0x8F0Fu);
+    CHECK(Bh_t::reverse<U32_t>(0xF0F0FF01u) == 0x80FF0F0Fu);
+    CHECK(Bh_t::reverse<U64_t>(0xF0F0FF00FF00FFF1ull) == 0x8FFF00FF00FF0F0Full);
 
     CHECK(Bh_t::mask_for<U8_t>(0x10u) == 0x1Fu);
     CHECK(Bh_t::mask_for<U16_t>(0x0102u) == 0x01FFu);
@@ -424,6 +425,14 @@ TEST_CASE("Testing Bithelpers")
     CHECK(Bh_t::find_trail_zero<U32_t>(0xFF0000FFu) == 8u);
     CHECK(Bh_t::find_trail_zero<U64_t>(0xFFFF00000000FFFFull) == 16u);
 
+
+
+    //Check 64 bit platform
+#if INTPTR_MAX == INT64_MAX 
+
+
+
+#endif
 
 }
 

@@ -162,10 +162,11 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\assert_msg.h" />
+    <ClInclude Include="assert_msg.h" />
     <ClInclude Include="include\Bithelpers.h" />
     <ClInclude Include="include\Bitman.h" />
     <ClInclude Include="include\Bitparams.h" />
+    <ClInclude Include="include\bits.h" />
     <ClInclude Include="tests\tests.h" />
   </ItemGroup>
   <ItemGroup>

@@ -35,8 +35,8 @@ int main(/*int argc, char** argv*/)
 {
     std::cout << "Hello!" << '\n' << '\n';
 
-    auto x = fav::Bithelpers::find_lead_zero<std::uint64_t>(0xFFFF00000000FFFFull);
-    std::cout << '\n' << x << '\n';
+    //auto x = fav::Bithelpers::find_lead_zero<std::uint64_t>(0xFFFF00000000FFFFull);
+    //std::cout << '\n' << x << '\n';
     //x = fav::Bithelpers::pow2_lowest<std::uint64_t>(0x0000000000030000ull);
     //std::cout << '\n' << x << '\n';
 
