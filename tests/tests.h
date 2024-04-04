@@ -42,12 +42,8 @@ void doctest_run()
 
 
 /** User includes */
-//#include <cstddef>
-//#include <cstdint>
+#include "include/bits.h"
 
-//#include "include/Bitparams.h"
-//#include "include/Bithelpers.h"
-#include "bits.h"
 
 
 //***********************************************************************/
@@ -60,6 +56,7 @@ void doctest_run()
 
 TEST_CASE("Testing Bitparams uint8_t")
 {
+    
     using Bp_t = fav::Bitparams<std::uint8_t>;
 
     CHECK(Bp_t::NUM_BYTES == 1u);
@@ -274,7 +271,7 @@ TEST_CASE("Testing Bitparams uint32_t")
 
 
 
-//Check 64 bit platform
+//Check for 64 bit platform
 #if INTPTR_MAX == INT64_MAX 
 
 TEST_CASE("Testing Bitparams uint64_t")
@@ -366,71 +363,55 @@ TEST_CASE("Testing Bithelpers")
     CHECK(Bh_t::reverse<U8_t>(0xF1u) == 0x8Fu);
     CHECK(Bh_t::reverse<U16_t>(0xF0F1u) == 0x8F0Fu);
     CHECK(Bh_t::reverse<U32_t>(0xF0F0FF01u) == 0x80FF0F0Fu);
-    CHECK(Bh_t::reverse<U64_t>(0xF0F0FF00FF00FFF1ull) == 0x8FFF00FF00FF0F0Full);
-
+    
     CHECK(Bh_t::mask_for<U8_t>(0x10u) == 0x1Fu);
     CHECK(Bh_t::mask_for<U16_t>(0x0102u) == 0x01FFu);
     CHECK(Bh_t::mask_for<U32_t>(0x01020304u) == 0x01FFFFFFu);
-    CHECK(Bh_t::mask_for<U64_t>(0x0102030405060708ull) == 0x01FFFFFFFFFFFFFFull);
-
+    
     CHECK(Bh_t::count_pop<U32_t>(0x00000001u) == 1u);
     CHECK(Bh_t::count_pop<U32_t>(0xFFFFFFFFu) == 32u);
     CHECK(Bh_t::count_pop<U32_t>(0x55555555u) == 16u);
 
-    CHECK(Bh_t::count_pop<U64_t>(0x0000000000000001ull) == 1u);
-    CHECK(Bh_t::count_pop<U64_t>(0xFFFFFFFFFFFFFFFFull) == 64u);
-    CHECK(Bh_t::count_pop<U64_t>(0x5555555555555555ull) == 32u);
-
-    CHECK(Bh_t::count_zeros<U32_t>(0x10203040u) == 27u);
-    CHECK(Bh_t::count_zeros<U64_t>(0xF0F0F0F0F0F0F0F0ull) == 32u);
-
-    CHECK(Bh_t::count_lead_zeros<U32_t>(0x0000FFFFu) == 16u);
-    CHECK(Bh_t::count_lead_zeros<U64_t>(0x0FFFFFFFFFFFFFFFull) == 4u);
-
     CHECK(Bh_t::count_trail_zeros<U8_t>(0xF0u) == 4u);
     CHECK(Bh_t::count_trail_zeros<U16_t>(0xFF00u) == 8u);
     CHECK(Bh_t::count_trail_zeros<U32_t>(0xFFFF0000u) == 16u);
-    CHECK(Bh_t::count_trail_zeros<U64_t>(0xF000000000000000ull) == 60u);
-
+    CHECK(Bh_t::count_zeros<U32_t>(0x10203040u) == 27u);
+    CHECK(Bh_t::count_lead_zeros<U32_t>(0x0000FFFFu) == 16u);
     CHECK(Bh_t::count_lead_ones<U32_t>(0xFFFF0000u) == 16u);
-    CHECK(Bh_t::count_lead_ones<U64_t>(0xF00000000000F000ull) == 4u);
-
     CHECK(Bh_t::count_trail_ones<U32_t>(0x0000FFFFu) == 16u);
-    CHECK(Bh_t::count_trail_ones<U64_t>(0xF00000000000000Full) == 4u);
-
     CHECK(Bh_t::pow2_highest<U32_t>(0x00030000u) == 262144u);
-    CHECK(Bh_t::pow2_highest<U64_t>(0x0000000000030000ull) == 262144u);
-
     CHECK(Bh_t::pow2_lowest<U32_t>(0x00030000u) == 131072u);
-    CHECK(Bh_t::pow2_lowest<U64_t>(0x0000000000030000ull) == 131072u);
-
     CHECK(Bh_t::isolate_trail<U32_t>(0x11223344u, 15) == 0x00003344u);
-    CHECK(Bh_t::isolate_trail<U64_t>(0x1122334455667788ull, 31) == 0x0000000055667788ull);
-
     CHECK(Bh_t::isolate_lead<U32_t>(0x11223344u, 15) == 0x11220000u);
-    CHECK(Bh_t::isolate_lead<U64_t>(0x1122334455667788ull, 31) == 0x1122334400000000ull);
-
     CHECK(Bh_t::remove_bit<U32_t>(0x11223344u, 15) == 0x08913344u);
-    CHECK(Bh_t::remove_bit<U64_t>(0x1122334455667788ull, 31) == 0x089119A255667788ull);
-
     CHECK(Bh_t::find_lead_one<U32_t>(0x00F00000u) == 23u);
-    CHECK(Bh_t::find_lead_one<U64_t>(0x0000F00000000000ull) == 47u);
-
     CHECK(Bh_t::find_trail_one<U32_t>(0x00F00000u) == 20u);
-    CHECK(Bh_t::find_trail_one<U64_t>(0x0000F00000000000ull) == 44u);
-
     CHECK(Bh_t::find_lead_zero<U32_t>(0xFF0000FFu) == 23u);
-    CHECK(Bh_t::find_lead_zero<U64_t>(0xFFFF00000000FFFFull) == 47u);
-
     CHECK(Bh_t::find_trail_zero<U32_t>(0xFF0000FFu) == 8u);
-    CHECK(Bh_t::find_trail_zero<U64_t>(0xFFFF00000000FFFFull) == 16u);
+    
 
 
-
-    //Check 64 bit platform
+    //Check for 64 bit platform
 #if INTPTR_MAX == INT64_MAX 
 
-
+    CHECK(Bh_t::reverse<U64_t>(0xF0F0FF00FF00FFF1ull) == 0x8FFF00FF00FF0F0Full);
+    CHECK(Bh_t::mask_for<U64_t>(0x0102030405060708ull) == 0x01FFFFFFFFFFFFFFull);
+    CHECK(Bh_t::count_pop<U64_t>(0x0000000000000001ull) == 1u);
+    CHECK(Bh_t::count_pop<U64_t>(0x5555555555555555ull) == 32u);
+    CHECK(Bh_t::count_zeros<U64_t>(0xF0F0F0F0F0F0F0F0ull) == 32u);
+    CHECK(Bh_t::count_lead_zeros<U64_t>(0x0FFFFFFFFFFFFFFFull) == 4u);
+    CHECK(Bh_t::count_trail_zeros<U64_t>(0xF000000000000000ull) == 60u);
+    CHECK(Bh_t::count_lead_ones<U64_t>(0xF00000000000F000ull) == 4u);
+    CHECK(Bh_t::count_trail_ones<U64_t>(0xF00000000000000Full) == 4u);
+    CHECK(Bh_t::pow2_highest<U64_t>(0x0000000000030000ull) == 262144u);
+    CHECK(Bh_t::pow2_lowest<U64_t>(0x0000000000030000ull) == 131072u);
+    CHECK(Bh_t::isolate_trail<U64_t>(0x1122334455667788ull, 31) == 0x0000000055667788ull);
+    CHECK(Bh_t::isolate_lead<U64_t>(0x1122334455667788ull, 31) == 0x1122334400000000ull);
+    CHECK(Bh_t::remove_bit<U64_t>(0x1122334455667788ull, 31) == 0x089119A255667788ull);
+    CHECK(Bh_t::find_lead_one<U64_t>(0x0000F00000000000ull) == 47u);
+    CHECK(Bh_t::find_trail_one<U64_t>(0x0000F00000000000ull) == 44u);
+    CHECK(Bh_t::find_lead_zero<U64_t>(0xFFFF00000000FFFFull) == 47u);
+    CHECK(Bh_t::find_trail_zero<U64_t>(0xFFFF00000000FFFFull) == 16u);
 
 #endif
 

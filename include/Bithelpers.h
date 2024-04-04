@@ -1,5 +1,3 @@
-// Some ideas was taken from Bit Twiddling Hacks
-// https://graphics.stanford.edu/~seander/bithacks.html ;
 
 #ifdef _MSC_VER
 #pragma once
@@ -8,16 +6,11 @@
 #ifndef BITHELPERS_H
 #define BITHELPERS_H
 
-//#include <cstddef>
-//#include <cstdint>
-//#include <utility>
-//#include "Bitparams.h"
 
 
 
 namespace fav
 {
-
     /*Misc unsigned int bit twiddling functions.*/
     class Bithelpers
     {
@@ -138,7 +131,7 @@ namespace fav
 
 
 
-        /*Returns closest min mask for value.*/
+        /*Returns closest mask for value.*/
         template<typename T, typename = enable_if_unsigned_t<T>>
         static T mask_for(T) noexcept
         {
@@ -547,8 +540,6 @@ namespace fav
 
     }; //Bithelpers
 
-}
-
-
+}//fav
 
 #endif
