@@ -38,9 +38,9 @@ namespace fav
         template<>
         static std::uint8_t reverse(std::uint8_t v) noexcept
         {
-            using Bp_t = Bitparams<std::uint8_t>;
-            if (Bp_t::is_clear_all(v)) { return v; }
-            if (Bp_t::is_set_all(v)) { return v; }
+            using Bm_t = Bitmanip<std::uint8_t>;
+            if (Bm_t::is_clear_all(v)) { return v; }
+            if (Bm_t::is_set_all(v)) { return v; }
 
             v = ((v >> 1) & 0x55u) | ((v << 1) & 0xAAu);
             v = ((v >> 2) & 0x33u) | ((v << 2) & 0xCCu);
@@ -51,9 +51,9 @@ namespace fav
         template<>
         static std::uint16_t reverse(std::uint16_t v) noexcept
         {
-            using Bp_t = Bitparams<std::uint16_t>;
-            if (Bp_t::is_clear_all(v)) { return v; }
-            if (Bp_t::is_set_all(v)) { return v; }
+            using Bm_t = Bitmanip<std::uint16_t>;
+            if (Bm_t::is_clear_all(v)) { return v; }
+            if (Bm_t::is_set_all(v)) { return v; }
 
             v = ((v >> 1) & 0x5555u) | ((v << 1) & 0xAAAAu);
             v = ((v >> 2) & 0x3333u) | ((v << 2) & 0xCCCCu);
@@ -65,9 +65,9 @@ namespace fav
         template<>
         static std::uint32_t reverse(std::uint32_t v) noexcept
         {
-            using Bp_t = Bitparams<std::uint32_t>;
-            if (Bp_t::is_clear_all(v)) { return v; }
-            if (Bp_t::is_set_all(v)) { return v; }
+            using Bm_t = Bitmanip<std::uint32_t>;
+            if (Bm_t::is_clear_all(v)) { return v; }
+            if (Bm_t::is_set_all(v)) { return v; }
 
             v = ((v >> 1)  & 0x55555555u) | ((v << 1)  & 0xAAAAAAAAu);
             v = ((v >> 2)  & 0x33333333u) | ((v << 2)  & 0xCCCCCCCCu);
@@ -80,9 +80,9 @@ namespace fav
         template<>
         static std::uint64_t reverse(std::uint64_t v) noexcept
         {
-            using Bp_t = Bitparams<std::uint64_t>;
-            if (Bp_t::is_clear_all(v)) { return v; }
-            if (Bp_t::is_set_all(v)) { return v; }
+            using Bm_t = Bitmanip<std::uint64_t>;
+            if (Bm_t::is_clear_all(v)) { return v; }
+            if (Bm_t::is_set_all(v)) { return v; }
 
             v = ((v >> 1)  & 0x5555555555555555ull) | ((v << 1)  & 0xAAAAAAAAAAAAAAAAull);
             v = ((v >> 2)  & 0x3333333333333333ull) | ((v << 2)  & 0xCCCCCCCCCCCCCCCCull);
@@ -169,9 +169,10 @@ namespace fav
         template<>
         static Size_t count_pop(std::uint8_t v) noexcept
         {
+            using Bm_t = Bitmanip<std::uint8_t>;
             using Bp_t = Bitparams<std::uint8_t>;
-            if (Bp_t::is_clear_all(v)) { return 0u; }
-            if (Bp_t::is_set_all(v)) { return Bp_t::NUM_BITS; }
+            if (Bm_t::is_clear_all(v)) { return 0u; }
+            if (Bm_t::is_set_all(v)) { return Bp_t::NUM_BITS; }
 
             v -= (v >> 1) & 0x55u;
             v = ((v >> 2) & 0x33u) + (v & 0x33u);
@@ -182,9 +183,10 @@ namespace fav
         template<>
         static Size_t count_pop(std::uint16_t v) noexcept
         {
+            using Bm_t = Bitmanip<std::uint16_t>;
             using Bp_t = Bitparams<std::uint16_t>;
-            if (Bp_t::is_clear_all(v)) { return 0u; }
-            if (Bp_t::is_set_all(v)) { return Bp_t::NUM_BITS; }
+            if (Bm_t::is_clear_all(v)) { return 0u; }
+            if (Bm_t::is_set_all(v)) { return Bp_t::NUM_BITS; }
 
             v -= (v >> 1) & 0x5555u;
             v = ((v >> 2) & 0x3333u) + (v & 0x3333u);
@@ -195,9 +197,10 @@ namespace fav
         template<>
         static Size_t count_pop(std::uint32_t v) noexcept
         {
+            using Bm_t = Bitmanip<std::uint32_t>;
             using Bp_t = Bitparams<std::uint32_t>;
-            if (Bp_t::is_clear_all(v)) { return 0u; }
-            if (Bp_t::is_set_all(v)) { return Bp_t::NUM_BITS; }
+            if (Bm_t::is_clear_all(v)) { return 0u; }
+            if (Bm_t::is_set_all(v)) { return Bp_t::NUM_BITS; }
 
             v -= (v >> 1) & 0x55555555u;
             v = ((v >> 2) & 0x33333333u) + (v & 0x33333333u);
@@ -208,9 +211,10 @@ namespace fav
         template<>
         static Size_t count_pop(std::uint64_t v) noexcept
         {
+            using Bm_t = Bitmanip<std::uint64_t>;
             using Bp_t = Bitparams<std::uint64_t>;
-            if (Bp_t::is_clear_all(v)) { return 0ull; }
-            if (Bp_t::is_set_all(v)) { return Bp_t::NUM_BITS; }
+            if (Bm_t::is_clear_all(v)) { return 0ull; }
+            if (Bm_t::is_set_all(v)) { return Bp_t::NUM_BITS; }
 
             v -= (v >> 1) & 0x5555555555555555ull;
             v = ((v >> 2) & 0x3333333333333333ull) + (v & 0x3333333333333333ull);
@@ -262,10 +266,11 @@ namespace fav
         template<>
         static Size_t count_trail_zeros(std::uint8_t v) noexcept
         {
+            using Bm_t = Bitmanip<std::uint8_t>;
             using Bp_t = Bitparams<std::uint8_t>;
             Size_t c = Bp_t::NUM_BITS;
-            if (Bp_t::is_clear_all(v)) { return c; }
-            if (Bp_t::is_set_all(v)) { return 0u; }
+            if (Bm_t::is_clear_all(v)) { return c; }
+            if (Bm_t::is_set_all(v)) { return 0u; }
 
             v &= (0u - v);
             if (v) { --c; }
@@ -278,10 +283,11 @@ namespace fav
         template<>
         static Size_t count_trail_zeros(std::uint16_t v) noexcept
         {
+            using Bm_t = Bitmanip<std::uint16_t>;
             using Bp_t = Bitparams<std::uint16_t>;
             Size_t c = Bp_t::NUM_BITS;
-            if (Bp_t::is_clear_all(v)) { return c; }
-            if (Bp_t::is_set_all(v)) { return 0u; }
+            if (Bm_t::is_clear_all(v)) { return c; }
+            if (Bm_t::is_set_all(v)) { return 0u; }
 
             v &= (0u - v);
             if (v) { --c; }
@@ -295,10 +301,11 @@ namespace fav
         template<>
         static Size_t count_trail_zeros(std::uint32_t v) noexcept
         {
+            using Bm_t = Bitmanip<std::uint32_t>;
             using Bp_t = Bitparams<std::uint32_t>;
             Size_t c = Bp_t::NUM_BITS;
-            if (Bp_t::is_clear_all(v)) { return c; }
-            if (Bp_t::is_set_all(v)) { return 0u; }
+            if (Bm_t::is_clear_all(v)) { return c; }
+            if (Bm_t::is_set_all(v)) { return 0u; }
 
             v &= (0u - v);
             if (v) { --c; }
@@ -313,10 +320,11 @@ namespace fav
         template<>
         static Size_t count_trail_zeros(std::uint64_t v) noexcept
         {
+            using Bm_t = Bitmanip<std::uint64_t>;
             using Bp_t = Bitparams<std::uint64_t>;
             Size_t c = Bp_t::NUM_BITS;
-            if (Bp_t::is_clear_all(v)) { return c; }
-            if (Bp_t::is_set_all(v)) { return 0ull; }
+            if (Bm_t::is_clear_all(v)) { return c; }
+            if (Bm_t::is_set_all(v)) { return 0ull; }
 
             v &= (0ull - v); //v &= -signed(v);
             if (v) { --c; }
@@ -392,9 +400,10 @@ namespace fav
         template<typename T, typename = enable_if_unsigned_t<T>>
         static T isolate_trail(T value, Size_t bitnum) noexcept
         {
+            using Bm_t = Bitmanip<T>;
             using Bp_t = Bitparams<T>;
-            if (Bp_t::is_invalid_bitnum(bitnum)) { return 0u; }
-            T mask = Bp_t::bit_value(bitnum);
+            if (Bm_t::is_invalid_bitnum(bitnum)) { return 0u; }
+            T mask = Bm_t::get_bit_value(bitnum);
             --mask;
             value &= mask;
             return value;
@@ -408,8 +417,9 @@ namespace fav
         template<typename T, typename = enable_if_unsigned_t<T>>
         static T isolate_lead(T value, Size_t bitnum) noexcept
         {
+            using Bm_t = Bitmanip<T>;
             using Bp_t = Bitparams<T>;
-            if (Bp_t::is_invalid_bitnum(bitnum)) { return 0u; }
+            if (Bm_t::is_invalid_bitnum(bitnum)) { return 0u; }
             T mask = Bp_t::MASK_ALL;
             ++bitnum;
             mask <<= bitnum;
@@ -446,9 +456,10 @@ namespace fav
         template<typename T, typename = enable_if_unsigned_t<T>>
         static Size_t find_lead_one(T v) noexcept
         {
+            using Bm_t = Bitmanip<T>;
             using Bp_t = Bitparams<T>;
-            if (Bp_t::is_clear_all(v)) { return Bp_t::NUM_BITS; }
-            if (Bp_t::is_set_msbit(v)) { return Bp_t::NUM_MSBIT; }
+            if (Bm_t::is_clear_all(v)) { return Bp_t::NUM_BITS; }
+            if (Bm_t::is_set_msbit(v)) { return Bp_t::NUM_BIT_MS; }
             
             Size_t tmp = count_lead_zeros<T>(v);
             ++tmp;
@@ -466,9 +477,10 @@ namespace fav
         template<typename T, typename = enable_if_unsigned_t<T>>
         static Size_t find_trail_one(T v) noexcept
         {
+            using Bm_t = Bitmanip<T>;
             using Bp_t = Bitparams<T>;
-            if (Bp_t::is_clear_all(v)) { return Bp_t::NUM_BITS; }
-            if (Bp_t::is_set_lsbit(v)) { return Bp_t::NUM_LSBIT; }
+            if (Bm_t::is_clear_all(v)) { return Bp_t::NUM_BITS; }
+            if (Bm_t::is_set_lsbit(v)) { return Bp_t::NUM_BIT_LS; }
             return count_trail_zeros<T>(v);
         }
 
@@ -482,11 +494,12 @@ namespace fav
         template<typename T, typename = enable_if_unsigned_t<T>>
         static Size_t find_lead_zero(T v) noexcept
         {
+            using Bm_t = Bitmanip<T>;
             using Bp_t = Bitparams<T>;
-            if (Bp_t::is_set_all(v)) { return Bp_t::NUM_BITS; }
-            if (Bp_t::is_clear_msbit(v)) { return Bp_t::NUM_MSBIT; }
+            if (Bm_t::is_set_all(v)) { return Bp_t::NUM_BITS; }
+            if (Bm_t::is_clear_msbit(v)) { return Bp_t::NUM_BIT_MS; }
             v = ~v;
-            return Bp_t::NUM_MSBIT - count_lead_zeros(v);
+            return Bp_t::NUM_BIT_MS - count_lead_zeros(v);
         }
 
 
@@ -499,9 +512,10 @@ namespace fav
         template<typename T, typename = enable_if_unsigned_t<T>>
         static Size_t find_trail_zero(T v) noexcept
         {
+            using Bm_t = Bitmanip<T>;
             using Bp_t = Bitparams<T>;
-            if (Bp_t::is_set_all(v)) { return Bp_t::NUM_BITS; }
-            if (Bp_t::is_clear_lsbit(v)) { return Bp_t::NUM_LSBIT; }
+            if (Bm_t::is_set_all(v)) { return Bp_t::NUM_BITS; }
+            if (Bm_t::is_clear_lsbit(v)) { return Bp_t::NUM_BIT_LS; }
             v = ~v;
             return count_trail_zeros(v);
         }

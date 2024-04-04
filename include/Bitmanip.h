@@ -330,13 +330,13 @@ namespace fav
         /*Test if less significant bit is set to 1.*/
         static inline constexpr bool is_set_lsbit(Value_t value) noexcept
         {
-            return (value & Bp_t::VALUE_LSBIT) != NUM_0;
+            return (value & Bp_t::VALUE_BIT_LS) != NUM_0;
         }
 
         /*Test if most significant bit is set to 1.*/
         static inline constexpr bool is_set_msbit(Value_t value) noexcept
         {
-            return (value & Bp_t::VALUE_MSBIT) != NUM_0;
+            return (value & Bp_t::VALUE_BIT_MS) != NUM_0;
         }
 
 
@@ -360,13 +360,13 @@ namespace fav
         /*Test if less significant bit is 0.*/
         static inline constexpr bool is_clear_lsbit(Value_t value) noexcept
         {
-            return (value & Bp_t::VALUE_LSBIT) == NUM_0;
+            return (value & Bp_t::VALUE_BIT_LS) == NUM_0;
         }
 
         /*Test if most significant bit is 0.*/
         static inline constexpr bool is_clear_msbit(Value_t value) noexcept
         {
-            return (value & Bp_t::VALUE_MSBIT) == NUM_0;
+            return (value & Bp_t::VALUE_BIT_MS) == NUM_0;
         }
 
 
@@ -396,7 +396,6 @@ namespace fav
         static inline constexpr bool is_odd(Value_t value) noexcept
         {
             return (value & NUM_1) == NUM_0 ? false : true;
-            //return static_cast<bool>(value & NUM_1);
         }
 
         static inline constexpr bool is_even(Value_t value) noexcept
