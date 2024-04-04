@@ -35,7 +35,9 @@ int main(/*int argc, char** argv*/)
 {
     std::cout << "Hello!" << '\n' << '\n';
 
-    //auto x = fav::Bithelpers::count_trail_zeros<std::uint64_t>(0xF000000000000000ull);
+    auto x = fav::Bithelpers::find_trail_one<std::uint64_t>(0x0000F00000000000ull);
+    std::cout << '\n' << x << '\n';
+    //x = fav::Bithelpers::pow2_lowest<std::uint64_t>(0x0000000000030000ull);
     //std::cout << '\n' << x << '\n';
 
 

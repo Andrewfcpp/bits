@@ -354,7 +354,7 @@ namespace fav
             using Bp_t = Bitparams<std::uint64_t>;
             Size_t c = Bp_t::NUM_BITS;
             if (Bp_t::is_clear_all(v)) { return c; }
-            if (Bp_t::is_set_all(v)) { return 0ULL; }
+            if (Bp_t::is_set_all(v)) { return 0ull; }
 
             v &= (0ull - v); //v &= -signed(v);
             if (v) { --c; }
@@ -425,13 +425,13 @@ namespace fav
         /*Isolate lowest part of bits before bitnum.
         0b01010101 value
         0b00001000 bitnum = 3
-        0b00000101 result */
+        0b00000101 result
+        returns 0 if bitnum >= NUM_BITS*/
         template<typename T, typename = enable_if_unsigned_t<T>>
-        static T isolate_low(T value, Size_t bitnum) noexcept
+        static T isolate_trail(T value, Size_t bitnum) noexcept
         {
             using Bp_t = Bitparams<T>;
-            bitnum &= Bp_t::MASK_NUM_BITS;
-
+            if (Bp_t::is_invalid_bitnum(bitnum)) { return 0u; }
             T mask = Bp_t::bit_value(bitnum);
             --mask;
             value &= mask;
@@ -441,13 +441,13 @@ namespace fav
         /*Isolate highest part of bits after bitnum.
         0b10101010 value
         0b00001000 bitnum = 3
-        0b10100000 result */
+        0b10100000 result 
+        returns 0 if bitnum >= NUM_BITS*/
         template<typename T, typename = enable_if_unsigned_t<T>>
-        static T isolate_high(T value, Size_t bitnum) noexcept
+        static T isolate_lead(T value, Size_t bitnum) noexcept
         {
             using Bp_t = Bitparams<T>;
-            bitnum &= Bp_t::MASK_NUM_BITS;
-
+            if (Bp_t::is_invalid_bitnum(bitnum)) { return 0u; }
             T mask = Bp_t::MASK_ALL;
             ++bitnum;
             mask <<= bitnum;
@@ -458,12 +458,13 @@ namespace fav
         /*Remove bit from value.
         0b10101010 value
         0b00001000 bitnum = 3
-        0b01010010 result */
+        0b01010010 result
+        returns 0 if bitnum >= NUM_BITS*/
         template<typename T, typename = enable_if_unsigned_t<T>>
         static T remove_bit(T value, Size_t bitnum) noexcept
         {
-            T a = isolate_low<T>(value, bitnum);
-            T b = isolate_high<T>(value, bitnum);
+            T a = isolate_trail<T>(value, bitnum);
+            T b = isolate_lead<T>(value, bitnum);
             b >>= 1;
             value = a | b;
             return value;
@@ -505,7 +506,7 @@ namespace fav
         {
             using Bp_t = Bitparams<T>;
             if (Bp_t::is_clear_all(v)) { return Bp_t::NUM_BITS; }
-            if (Bp_t::is_clear_lsb(v)) { return Bp_t::NUM_LSBIT; }
+            if (Bp_t::is_set_lsbit(v)) { return Bp_t::NUM_LSBIT; }
             return count_trail_zeros<T>(v);
         }
 
@@ -522,7 +523,7 @@ namespace fav
             static_assert(0, "Error! Not implemented.");
             using Bp_t = Bitparams<T>;
             if (Bp_t::is_set_all()) { return Bp_t::NUM_BITS; }
-            if (Bp_t::is_clear_msb()) { return Bp_t::NUM_MSBIT; }
+            if (Bp_t::is_clear_msbit()) { return Bp_t::NUM_MSBIT; }
 
             //TODO
         }
@@ -539,7 +540,7 @@ namespace fav
         {
             static_assert(0, "Error! Not implemented.");
             using Bp_t = Bitparams<T>;
-            if (Bp_t::is_clear_lsb(v)) { return Bp_t::NUM_LSBIT; }
+            if (Bp_t::is_clear_lsbit(v)) { return Bp_t::NUM_LSBIT; }
             if (Bp_t::is_set_all(v)) { return Bp_t::NUM_MSBIT; }
 
             //TODO
