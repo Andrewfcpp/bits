@@ -6,6 +6,9 @@
 #ifndef BITHELPERS_H
 #define BITHELPERS_H
 
+//#include <cstddef>
+//#include <cstdint>
+//#include <utility>
 //#include "Bitmanip.h"
 
 
@@ -23,6 +26,11 @@ namespace fav
     public:
         using Size_t = std::size_t;
 
+
+
+        //***********************************************************************/
+        //Reverse
+        //***********************************************************************/
 
 
         /*Reverse bits
@@ -96,6 +104,8 @@ namespace fav
 
 
         //***********************************************************************/
+        //Mask
+        //***********************************************************************/
 
 
 
@@ -151,6 +161,8 @@ namespace fav
 
 
 
+        //***********************************************************************/
+        //Count
         //***********************************************************************/
 
 
@@ -364,6 +376,8 @@ namespace fav
 
 
         //***********************************************************************/
+        //Power of 2
+        //***********************************************************************/
 
 
 
@@ -389,6 +403,8 @@ namespace fav
 
 
         //***********************************************************************/
+        //Isolate
+        //***********************************************************************/
 
 
 
@@ -402,7 +418,7 @@ namespace fav
         {
             using Bm_t = Bitmanip<T>;
             using Bp_t = Bitparams<T>;
-            if (Bm_t::is_invalid_bitnum(bitnum)) { return 0u; }
+            if (Bm_t::is_invalid(bitnum)) { return 0u; }
             T mask = Bm_t::get_bit_value(bitnum);
             --mask;
             value &= mask;
@@ -419,7 +435,7 @@ namespace fav
         {
             using Bm_t = Bitmanip<T>;
             using Bp_t = Bitparams<T>;
-            if (Bm_t::is_invalid_bitnum(bitnum)) { return 0u; }
+            if (Bm_t::is_invalid(bitnum)) { return 0u; }
             T mask = Bp_t::MASK_ALL;
             ++bitnum;
             mask <<= bitnum;
@@ -445,6 +461,8 @@ namespace fav
 
 
         //***********************************************************************/
+        //Find
+        //***********************************************************************/
 
 
 
@@ -459,7 +477,7 @@ namespace fav
             using Bm_t = Bitmanip<T>;
             using Bp_t = Bitparams<T>;
             if (Bm_t::is_clear_all(v)) { return Bp_t::NUM_BITS; }
-            if (Bm_t::is_set_msbit(v)) { return Bp_t::NUM_BIT_MS; }
+            if (Bm_t::is_set_ms(v)) { return Bp_t::BIT_NUM_MS; }
             
             Size_t tmp = count_lead_zeros<T>(v);
             ++tmp;
@@ -480,7 +498,7 @@ namespace fav
             using Bm_t = Bitmanip<T>;
             using Bp_t = Bitparams<T>;
             if (Bm_t::is_clear_all(v)) { return Bp_t::NUM_BITS; }
-            if (Bm_t::is_set_lsbit(v)) { return Bp_t::NUM_BIT_LS; }
+            if (Bm_t::is_set_ls(v)) { return Bp_t::BIT_NUM_LS; }
             return count_trail_zeros<T>(v);
         }
 
@@ -497,9 +515,9 @@ namespace fav
             using Bm_t = Bitmanip<T>;
             using Bp_t = Bitparams<T>;
             if (Bm_t::is_set_all(v)) { return Bp_t::NUM_BITS; }
-            if (Bm_t::is_clear_msbit(v)) { return Bp_t::NUM_BIT_MS; }
+            if (Bm_t::is_clear_ms(v)) { return Bp_t::BIT_NUM_MS; }
             v = ~v;
-            return Bp_t::NUM_BIT_MS - count_lead_zeros(v);
+            return Bp_t::BIT_NUM_MS - count_lead_zeros(v);
         }
 
 
@@ -515,9 +533,81 @@ namespace fav
             using Bm_t = Bitmanip<T>;
             using Bp_t = Bitparams<T>;
             if (Bm_t::is_set_all(v)) { return Bp_t::NUM_BITS; }
-            if (Bm_t::is_clear_lsbit(v)) { return Bp_t::NUM_BIT_LS; }
+            if (Bm_t::is_clear_ls(v)) { return Bp_t::BIT_NUM_LS; }
             v = ~v;
             return count_trail_zeros(v);
+        }
+
+
+
+        //***********************************************************************/
+        //Fill
+        //***********************************************************************/
+
+
+
+        /*Set bitnum and all trailing bits.
+        0b00000000 value
+        0b00001000 bitnum = 3
+        0b00001111 result.*/
+        template<typename T, typename = enable_if_unsigned_t<T>>
+        static T fill_trail_ones(T v, Size_t bitnum) noexcept
+        {
+            using Bm_t = Bitmanip<T>;
+            using Bp_t = Bitparams<T>;
+            if (Bm_t::is_invalid(bitnum)) { return Bp_t::MASK_ALL; }
+            T mask = static_cast<T>(1u) << bitnum;
+            mask = ((mask - 1u) | mask); //mask = mask_for<T>(mask);
+            return v | mask;
+        }
+
+        /*Set bitnum and all leading bits.
+        0b00000000 value
+        0b00001000 bitnum = 3
+        0b11111000 result.*/
+        template<typename T, typename = enable_if_unsigned_t<T>>
+        static T fill_lead_ones(T v, Size_t bitnum) noexcept
+        {
+            using Bm_t = Bitmanip<T>;
+            using Bp_t = Bitparams<T>;
+            //--bitnum;
+            if (Bm_t::is_invalid(bitnum)) { return v; }
+            T mask = static_cast<T>(1u) << bitnum;
+            --mask; //mask = mask_for<T>(mask);
+            mask = ~mask;
+            return v | mask;
+        }
+
+        /*Clear bitnum and all trailing bits.
+        0b11111111 value
+        0b00001000 bitnum = 3,
+        0b11110000 result.*/
+        template<typename T, typename = enable_if_unsigned_t<T>>
+        static T fill_trail_zeros(T v, Size_t bitnum) noexcept
+        {
+            using Bm_t = Bitmanip<T>;
+            using Bp_t = Bitparams<T>;
+            ++bitnum;
+            if (Bm_t::is_invalid(bitnum)) { return static_cast<T>(0u); }
+            T mask = Bp_t::MASK_ALL;
+            mask <<= bitnum;
+            return v & mask;
+        }
+
+        /*Clear bitnum and all leading bits.
+        0b11111111 value
+        0b00001000 bitnum = 3,
+        0b00000111 result.*/
+        template<typename T, typename = enable_if_unsigned_t<T>>
+        static T fill_lead_zeros(T v, Size_t bitnum) noexcept
+        {
+            using Bm_t = Bitmanip<T>;
+            using Bp_t = Bitparams<T>;
+            if (Bm_t::is_invalid(bitnum)) { return v; }
+            T mask = Bp_t::MASK_ALL;
+            mask <<= bitnum;
+            mask = ~mask;
+            return v & mask;
         }
 
     }; //Bithelpers

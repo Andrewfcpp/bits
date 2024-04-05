@@ -60,15 +60,15 @@ TEST_CASE("Testing Bitparams uint8")
     CHECK(Bp_t::NUM_BYTES == 1u);
     CHECK(Bp_t::NUM_BITS == 8u);
     CHECK(Bp_t::MASK_ALL == 0xFFu);
-    CHECK(Bp_t::NUM_BIT_MS == 7u);
-    CHECK(Bp_t::VALUE_BIT_MS == 0x80u);
+    CHECK(Bp_t::BIT_NUM_MS == 7u);
+    CHECK(Bp_t::BIT_VALUE_MS == 0x80u);
     CHECK(Bp_t::MASK_BIT_LS == 0xFEu);
     CHECK(Bp_t::MASK_BIT_MS == 0x7Fu);
 
-    CHECK(Bp_t::IS_8BIT == true);
-    CHECK(Bp_t::IS_16BIT == false);
-    CHECK(Bp_t::IS_32BIT == false);
-    CHECK(Bp_t::IS_64BIT == false);
+    CHECK(Bp_t::IS_NUM_BITS_8 == true);
+    CHECK(Bp_t::IS_NUM_BITS_16 == false);
+    CHECK(Bp_t::IS_NUM_BITS_32 == false);
+    CHECK(Bp_t::IS_NUM_BITS_64 == false);
 
     CHECK(Bp_t::MASK_BYTE_MS_0xF0 == 0xF0u);
     CHECK(Bp_t::MASK_BYTE_MS_0xFF == 0xFFu);
@@ -79,11 +79,11 @@ TEST_CASE("Testing Bitparams uint8")
     CHECK(Bm_t::is_set_all(0x10u) == false);
     CHECK(Bm_t::is_set_all(0xFFu) == true);
            
-    CHECK(Bm_t::is_set_lsbit(0xFEu) == false);
-    CHECK(Bm_t::is_set_lsbit(0x01u) == true);
+    CHECK(Bm_t::is_set_ls(0xFEu) == false);
+    CHECK(Bm_t::is_set_ls(0x01u) == true);
            
-    CHECK(Bm_t::is_set_msbit(0x7Fu) == false);
-    CHECK(Bm_t::is_set_msbit(0x80u) == true);
+    CHECK(Bm_t::is_set_ms(0x7Fu) == false);
+    CHECK(Bm_t::is_set_ms(0x80u) == true);
            
     CHECK(Bm_t::is_clear_any(0xFFu) == false);
     CHECK(Bm_t::is_clear_any(0x07u) == true);
@@ -91,19 +91,19 @@ TEST_CASE("Testing Bitparams uint8")
     CHECK(Bm_t::is_clear_all(0x80u) == false);
     CHECK(Bm_t::is_clear_all(0x00u) == true);
            
-    CHECK(Bm_t::is_clear_lsbit(0xFFu) == false);
-    CHECK(Bm_t::is_clear_lsbit(0xFEu) == true);
+    CHECK(Bm_t::is_clear_ls(0xFFu) == false);
+    CHECK(Bm_t::is_clear_ls(0xFEu) == true);
            
-    CHECK(Bm_t::is_clear_msbit(0xFFu) == false);
-    CHECK(Bm_t::is_clear_msbit(0x7Fu) == true);
+    CHECK(Bm_t::is_clear_ms(0xFFu) == false);
+    CHECK(Bm_t::is_clear_ms(0x7Fu) == true);
            
-    CHECK(Bm_t::is_valid_bitnum(0u) == true);
-    CHECK(Bm_t::is_valid_bitnum(7u) == true);
-    CHECK(Bm_t::is_valid_bitnum(8u) == false);
+    CHECK(Bm_t::is_valid(0u) == true);
+    CHECK(Bm_t::is_valid(7u) == true);
+    CHECK(Bm_t::is_valid(8u) == false);
            
-    CHECK(Bm_t::is_invalid_bitnum(0u) == false);
-    CHECK(Bm_t::is_invalid_bitnum(7u) == false);
-    CHECK(Bm_t::is_invalid_bitnum(8u) == true);
+    CHECK(Bm_t::is_invalid(0u) == false);
+    CHECK(Bm_t::is_invalid(7u) == false);
+    CHECK(Bm_t::is_invalid(8u) == true);
            
     CHECK(Bm_t::is_even(0xFEu) == true);
     CHECK(Bm_t::is_even(0xFFu) == false);
@@ -133,15 +133,15 @@ TEST_CASE("Testing Bitparams uint16")
     CHECK(Bp_t::NUM_BYTES == 2u);
     CHECK(Bp_t::NUM_BITS == 16u);
     CHECK(Bp_t::MASK_ALL == 0xFFFFu);
-    CHECK(Bp_t::NUM_BIT_MS == 15u);
-    CHECK(Bp_t::VALUE_BIT_MS == 0x8000u);
+    CHECK(Bp_t::BIT_NUM_MS == 15u);
+    CHECK(Bp_t::BIT_VALUE_MS == 0x8000u);
     CHECK(Bp_t::MASK_BIT_LS == 0xFFFEu);
     CHECK(Bp_t::MASK_BIT_MS == 0x7FFFu);
 
-    CHECK(Bp_t::IS_8BIT == false);
-    CHECK(Bp_t::IS_16BIT == true);
-    CHECK(Bp_t::IS_32BIT == false);
-    CHECK(Bp_t::IS_64BIT == false);
+    CHECK(Bp_t::IS_NUM_BITS_8 == false);
+    CHECK(Bp_t::IS_NUM_BITS_16 == true);
+    CHECK(Bp_t::IS_NUM_BITS_32 == false);
+    CHECK(Bp_t::IS_NUM_BITS_64 == false);
 
     CHECK(Bp_t::MASK_BYTE_MS_0xF0 == 0xF000u);
     CHECK(Bp_t::MASK_BYTE_MS_0xFF == 0xFF00u);
@@ -152,11 +152,11 @@ TEST_CASE("Testing Bitparams uint16")
     CHECK(Bm_t::is_set_all(0x0010u) == false);
     CHECK(Bm_t::is_set_all(0xFFFFu) == true);
            
-    CHECK(Bm_t::is_set_lsbit(0x0000u) == false);
-    CHECK(Bm_t::is_set_lsbit(0x0001u) == true);
+    CHECK(Bm_t::is_set_ls(0x0000u) == false);
+    CHECK(Bm_t::is_set_ls(0x0001u) == true);
            
-    CHECK(Bm_t::is_set_msbit(0x0000u) == false);
-    CHECK(Bm_t::is_set_msbit(0x8000u) == true);
+    CHECK(Bm_t::is_set_ms(0x0000u) == false);
+    CHECK(Bm_t::is_set_ms(0x8000u) == true);
            
     CHECK(Bm_t::is_clear_any(0xFFFFu) == false);
     CHECK(Bm_t::is_clear_any(0x0070u) == true);
@@ -164,19 +164,19 @@ TEST_CASE("Testing Bitparams uint16")
     CHECK(Bm_t::is_clear_all(0x0080u) == false);
     CHECK(Bm_t::is_clear_all(0x0000u) == true);
            
-    CHECK(Bm_t::is_clear_lsbit(0xFFFFu) == false);
-    CHECK(Bm_t::is_clear_lsbit(0xFFFEu) == true);
+    CHECK(Bm_t::is_clear_ls(0xFFFFu) == false);
+    CHECK(Bm_t::is_clear_ls(0xFFFEu) == true);
            
-    CHECK(Bm_t::is_clear_msbit(0xFFFEu) == false);
-    CHECK(Bm_t::is_clear_msbit(0x7FFFu) == true);
+    CHECK(Bm_t::is_clear_ms(0xFFFEu) == false);
+    CHECK(Bm_t::is_clear_ms(0x7FFFu) == true);
            
-    CHECK(Bm_t::is_valid_bitnum(0u) == true);
-    CHECK(Bm_t::is_valid_bitnum(15u) == true);
-    CHECK(Bm_t::is_valid_bitnum(16u) == false);
+    CHECK(Bm_t::is_valid(0u) == true);
+    CHECK(Bm_t::is_valid(15u) == true);
+    CHECK(Bm_t::is_valid(16u) == false);
            
-    CHECK(Bm_t::is_invalid_bitnum(0u) == false);
-    CHECK(Bm_t::is_invalid_bitnum(15u) == false);
-    CHECK(Bm_t::is_invalid_bitnum(16u) == true);
+    CHECK(Bm_t::is_invalid(0u) == false);
+    CHECK(Bm_t::is_invalid(15u) == false);
+    CHECK(Bm_t::is_invalid(16u) == true);
            
     CHECK(Bm_t::is_even(0xFFFEu) == true);
     CHECK(Bm_t::is_even(0xFFFFu) == false);
@@ -206,15 +206,15 @@ TEST_CASE("Testing Bitparams uint32")
     CHECK(Bp_t::NUM_BYTES == 4u);
     CHECK(Bp_t::NUM_BITS == 32u);
     CHECK(Bp_t::MASK_ALL == 0xFFFFFFFFu);
-    CHECK(Bp_t::NUM_BIT_MS == 31u);
-    CHECK(Bp_t::VALUE_BIT_MS == 0x80000000u);
+    CHECK(Bp_t::BIT_NUM_MS == 31u);
+    CHECK(Bp_t::BIT_VALUE_MS == 0x80000000u);
     CHECK(Bp_t::MASK_BIT_LS == 0xFFFFFFFEu);
     CHECK(Bp_t::MASK_BIT_MS == 0x7FFFFFFFu);
 
-    CHECK(Bp_t::IS_8BIT  == false);
-    CHECK(Bp_t::IS_16BIT == false);
-    CHECK(Bp_t::IS_32BIT == true);
-    CHECK(Bp_t::IS_64BIT == false);
+    CHECK(Bp_t::IS_NUM_BITS_8 == false);
+    CHECK(Bp_t::IS_NUM_BITS_16 == false);
+    CHECK(Bp_t::IS_NUM_BITS_32 == true);
+    CHECK(Bp_t::IS_NUM_BITS_64 == false);
 
     CHECK(Bp_t::MASK_BYTE_MS_0xF0 == 0xF0000000u);
     CHECK(Bp_t::MASK_BYTE_MS_0xFF == 0xFF000000u);
@@ -225,11 +225,11 @@ TEST_CASE("Testing Bitparams uint32")
     CHECK(Bm_t::is_set_all(0x00001000u) == false);
     CHECK(Bm_t::is_set_all(0xFFFFFFFFu) == true);
            
-    CHECK(Bm_t::is_set_lsbit(0x00000000u) == false);
-    CHECK(Bm_t::is_set_lsbit(0x00000001u) == true);
+    CHECK(Bm_t::is_set_ls(0x00000000u) == false);
+    CHECK(Bm_t::is_set_ls(0x00000001u) == true);
            
-    CHECK(Bm_t::is_set_msbit(0x00000000u) == false);
-    CHECK(Bm_t::is_set_msbit(0x80000000u) == true);
+    CHECK(Bm_t::is_set_ms(0x00000000u) == false);
+    CHECK(Bm_t::is_set_ms(0x80000000u) == true);
            
     CHECK(Bm_t::is_clear_any(0xFFFFFFFFu) == false);
     CHECK(Bm_t::is_clear_any(0x00007000u) == true);
@@ -237,19 +237,19 @@ TEST_CASE("Testing Bitparams uint32")
     CHECK(Bm_t::is_clear_all(0x00008000u) == false);
     CHECK(Bm_t::is_clear_all(0x00000000u) == true);
            
-    CHECK(Bm_t::is_clear_lsbit(0xFFFFFFFFu) == false);
-    CHECK(Bm_t::is_clear_lsbit(0xFFFFFFFEu) == true);
+    CHECK(Bm_t::is_clear_ls(0xFFFFFFFFu) == false);
+    CHECK(Bm_t::is_clear_ls(0xFFFFFFFEu) == true);
            
-    CHECK(Bm_t::is_clear_msbit(0xFFFFFFFEu) == false);
-    CHECK(Bm_t::is_clear_msbit(0x7FFFFFFFu) == true);
+    CHECK(Bm_t::is_clear_ms(0xFFFFFFFEu) == false);
+    CHECK(Bm_t::is_clear_ms(0x7FFFFFFFu) == true);
            
-    CHECK(Bm_t::is_valid_bitnum(0u) == true);
-    CHECK(Bm_t::is_valid_bitnum(31u) == true);
-    CHECK(Bm_t::is_valid_bitnum(32u) == false);
+    CHECK(Bm_t::is_valid(0u) == true);
+    CHECK(Bm_t::is_valid(31u) == true);
+    CHECK(Bm_t::is_valid(32u) == false);
            
-    CHECK(Bm_t::is_invalid_bitnum(0u) == false);
-    CHECK(Bm_t::is_invalid_bitnum(31u) == false);
-    CHECK(Bm_t::is_invalid_bitnum(32u) == true);
+    CHECK(Bm_t::is_invalid(0u) == false);
+    CHECK(Bm_t::is_invalid(31u) == false);
+    CHECK(Bm_t::is_invalid(32u) == true);
            
     CHECK(Bm_t::is_even(0xFFFFFFFEu) == true);
     CHECK(Bm_t::is_even(0xFFFFFFFFu) == false);
@@ -282,15 +282,15 @@ TEST_CASE("Testing Bitparams uint64")
     CHECK(Bp_t::NUM_BYTES == 8u);
     CHECK(Bp_t::NUM_BITS == 64u);
     CHECK(Bp_t::MASK_ALL == 0xFFFFFFFFFFFFFFFFull);
-    CHECK(Bp_t::NUM_BIT_MS == 63u);
-    CHECK(Bp_t::VALUE_BIT_MS == 0x8000000000000000ull);
+    CHECK(Bp_t::BIT_NUM_MS == 63u);
+    CHECK(Bp_t::BIT_VALUE_MS == 0x8000000000000000ull);
     CHECK(Bp_t::MASK_BIT_LS == 0xFFFFFFFFFFFFFFFEull);
     CHECK(Bp_t::MASK_BIT_MS == 0x7FFFFFFFFFFFFFFFull);
 
-    CHECK(Bp_t::IS_8BIT == false);
-    CHECK(Bp_t::IS_16BIT == false);
-    CHECK(Bp_t::IS_32BIT == false);
-    CHECK(Bp_t::IS_64BIT == true);
+    CHECK(Bp_t::IS_NUM_BITS_8 == false);
+    CHECK(Bp_t::IS_NUM_BITS_16 == false);
+    CHECK(Bp_t::IS_NUM_BITS_32 == false);
+    CHECK(Bp_t::IS_NUM_BITS_64 == true);
 
     CHECK(Bp_t::MASK_BYTE_MS_0xF0 == 0xF000000000000000ull);
     CHECK(Bp_t::MASK_BYTE_MS_0xFF == 0xFF00000000000000ull);
@@ -301,11 +301,11 @@ TEST_CASE("Testing Bitparams uint64")
     CHECK(Bm_t::is_set_all(0x0000000000001000ull) == false);
     CHECK(Bm_t::is_set_all(0xFFFFFFFFFFFFFFFFull) == true);
 
-    CHECK(Bm_t::is_set_lsbit(0x0000000000000000ull) == false);
-    CHECK(Bm_t::is_set_lsbit(0x0000000000000001ull) == true);
+    CHECK(Bm_t::is_set_ls(0x0000000000000000ull) == false);
+    CHECK(Bm_t::is_set_ls(0x0000000000000001ull) == true);
 
-    CHECK(Bm_t::is_set_msbit(0x0000000000000000ull) == false);
-    CHECK(Bm_t::is_set_msbit(0x8000000000000000ull) == true);
+    CHECK(Bm_t::is_set_ms(0x0000000000000000ull) == false);
+    CHECK(Bm_t::is_set_ms(0x8000000000000000ull) == true);
 
     CHECK(Bm_t::is_clear_any(0xFFFFFFFFFFFFFFFFull) == false);
     CHECK(Bm_t::is_clear_any(0x0000000000007000ull) == true);
@@ -313,19 +313,19 @@ TEST_CASE("Testing Bitparams uint64")
     CHECK(Bm_t::is_clear_all(0x0000000000008000ull) == false);
     CHECK(Bm_t::is_clear_all(0x0000000000000000ull) == true);
 
-    CHECK(Bm_t::is_clear_lsbit(0xFFFFFFFFFFFFFFFFull) == false);
-    CHECK(Bm_t::is_clear_lsbit(0xFFFFFFFFFFFFFFFEull) == true);
+    CHECK(Bm_t::is_clear_ls(0xFFFFFFFFFFFFFFFFull) == false);
+    CHECK(Bm_t::is_clear_ls(0xFFFFFFFFFFFFFFFEull) == true);
 
-    CHECK(Bm_t::is_clear_msbit(0xFFFFFFFFFFFFFFFEull) == false);
-    CHECK(Bm_t::is_clear_msbit(0x7FFFFFFFFFFFFFFFull) == true);
+    CHECK(Bm_t::is_clear_ms(0xFFFFFFFFFFFFFFFEull) == false);
+    CHECK(Bm_t::is_clear_ms(0x7FFFFFFFFFFFFFFFull) == true);
 
-    CHECK(Bm_t::is_valid_bitnum(0u) == true);
-    CHECK(Bm_t::is_valid_bitnum(63u) == true);
-    CHECK(Bm_t::is_valid_bitnum(64u) == false);
+    CHECK(Bm_t::is_valid(0u) == true);
+    CHECK(Bm_t::is_valid(63u) == true);
+    CHECK(Bm_t::is_valid(64u) == false);
 
-    CHECK(Bm_t::is_invalid_bitnum(0u) == false);
-    CHECK(Bm_t::is_invalid_bitnum(63u) == false);
-    CHECK(Bm_t::is_invalid_bitnum(64u) == true);
+    CHECK(Bm_t::is_invalid(0u) == false);
+    CHECK(Bm_t::is_invalid(63u) == false);
+    CHECK(Bm_t::is_invalid(64u) == true);
 
     CHECK(Bm_t::is_even(0xFFFFFFFFFFFFFFFEull) == true);
     CHECK(Bm_t::is_even(0xFFFFFFFFFFFFFFFFull) == false);
@@ -380,16 +380,67 @@ TEST_CASE("Testing Bithelpers")
     CHECK(Bh_t::count_lead_zeros<U32_t>(0x0000FFFFu) == 16u);
     CHECK(Bh_t::count_lead_ones<U32_t>(0xFFFF0000u) == 16u);
     CHECK(Bh_t::count_trail_ones<U32_t>(0x0000FFFFu) == 16u);
+
     CHECK(Bh_t::pow2_highest<U32_t>(0x00030000u) == 262144u);
     CHECK(Bh_t::pow2_lowest<U32_t>(0x00030000u) == 131072u);
+
     CHECK(Bh_t::isolate_trail<U32_t>(0x11223344u, 15) == 0x00003344u);
     CHECK(Bh_t::isolate_lead<U32_t>(0x11223344u, 15) == 0x11220000u);
     CHECK(Bh_t::remove_bit<U32_t>(0x11223344u, 15) == 0x08913344u);
+
     CHECK(Bh_t::find_lead_one<U32_t>(0x00F00000u) == 23u);
     CHECK(Bh_t::find_trail_one<U32_t>(0x00F00000u) == 20u);
     CHECK(Bh_t::find_lead_zero<U32_t>(0xFF0000FFu) == 23u);
     CHECK(Bh_t::find_trail_zero<U32_t>(0xFF0000FFu) == 8u);
     
+    SUBCASE("Test fill functions uint32.")
+    {
+        CHECK(Bh_t::fill_trail_ones<U32_t>(0x00000000u, 0u)   == 0x00000001u);
+        CHECK(Bh_t::fill_trail_ones<U32_t>(0x00000000u, 3u)   == 0x0000000Fu);
+        CHECK(Bh_t::fill_trail_ones<U32_t>(0x00000000u, 15u)  == 0x0000FFFFu);
+        CHECK(Bh_t::fill_trail_ones<U32_t>(0x00000000u, 31u)  == 0xFFFFFFFFu);
+        CHECK(Bh_t::fill_trail_ones<U32_t>(0x00000000u, 128u) == 0xFFFFFFFFu);
+
+        CHECK(Bh_t::fill_trail_ones<U32_t>(0x12345678u, 0u)  == 0x12345679u);
+        CHECK(Bh_t::fill_trail_ones<U32_t>(0x12345678u, 3u)  == 0x1234567Fu);
+        CHECK(Bh_t::fill_trail_ones<U32_t>(0x12345678u, 15u) == 0x1234FFFFu);
+        CHECK(Bh_t::fill_trail_ones<U32_t>(0x12345678u, 31u) == 0xFFFFFFFFu);
+
+        CHECK(Bh_t::fill_lead_ones<U32_t>(0x00000000u, 0u)   == 0xFFFFFFFFu);
+        CHECK(Bh_t::fill_lead_ones<U32_t>(0x00000000u, 4u)   == 0xFFFFFFF0u);
+        CHECK(Bh_t::fill_lead_ones<U32_t>(0x00000000u, 16u)  == 0xFFFF0000u);
+        CHECK(Bh_t::fill_lead_ones<U32_t>(0x00000000u, 31u)  == 0x80000000u);
+        CHECK(Bh_t::fill_lead_ones<U32_t>(0x00000000u, 128u) == 0x00000000u);
+
+        CHECK(Bh_t::fill_lead_ones<U32_t>(0x12345678u, 0u)   == 0xFFFFFFFFu);
+        CHECK(Bh_t::fill_lead_ones<U32_t>(0x12345678u, 4u)   == 0xFFFFFFF8u);
+        CHECK(Bh_t::fill_lead_ones<U32_t>(0x12345678u, 16u)  == 0xFFFF5678u);
+        CHECK(Bh_t::fill_lead_ones<U32_t>(0x12345678u, 31u)  == 0x92345678u);
+        CHECK(Bh_t::fill_lead_ones<U32_t>(0x12345678u, 128u) == 0x12345678u);
+
+        CHECK(Bh_t::fill_trail_zeros<U32_t>(0xFFFFFFFFu, 0u)   == 0xFFFFFFFEu);
+        CHECK(Bh_t::fill_trail_zeros<U32_t>(0xFFFFFFFFu, 3u)   == 0xFFFFFFF0u);
+        CHECK(Bh_t::fill_trail_zeros<U32_t>(0xFFFFFFFFu, 15u)  == 0xFFFF0000u);
+        CHECK(Bh_t::fill_trail_zeros<U32_t>(0xFFFFFFFFu, 31u)  == 0x00000000u);
+        CHECK(Bh_t::fill_trail_zeros<U32_t>(0xFFFFFFFFu, 128u) == 0x00000000u);
+
+        CHECK(Bh_t::fill_trail_zeros<U32_t>(0x1234567Fu, 0u)  == 0x1234567Eu);
+        CHECK(Bh_t::fill_trail_zeros<U32_t>(0x12345678u, 3u)  == 0x12345670u);
+        CHECK(Bh_t::fill_trail_zeros<U32_t>(0x12345678u, 15u) == 0x12340000u);
+        CHECK(Bh_t::fill_trail_zeros<U32_t>(0x12345678u, 31u) == 0x00000000u);
+
+        CHECK(Bh_t::fill_lead_zeros<U32_t>(0xFFFFFFFFu, 0u)   == 0x00000000u);
+        CHECK(Bh_t::fill_lead_zeros<U32_t>(0xFFFFFFFFu, 4u)   == 0x0000000Fu);
+        CHECK(Bh_t::fill_lead_zeros<U32_t>(0xFFFFFFFFu, 16u)  == 0x0000FFFFu);
+        CHECK(Bh_t::fill_lead_zeros<U32_t>(0xFFFFFFFFu, 31u)  == 0x7FFFFFFFu);
+        CHECK(Bh_t::fill_lead_zeros<U32_t>(0xFFFFFFFFu, 128u) == 0xFFFFFFFFu);
+
+        CHECK(Bh_t::fill_lead_zeros<U32_t>(0x12345678u, 0u)   == 0x00000000u);
+        CHECK(Bh_t::fill_lead_zeros<U32_t>(0x12345678u, 4u)   == 0x00000008u);
+        CHECK(Bh_t::fill_lead_zeros<U32_t>(0x12345678u, 16u)  == 0x00005678u);
+        CHECK(Bh_t::fill_lead_zeros<U32_t>(0xF2345678u, 31u)  == 0x72345678u);
+        CHECK(Bh_t::fill_lead_zeros<U32_t>(0x12345678u, 128u) == 0x12345678u);
+    }
 
 
     //Check for 64 bit platform
@@ -427,7 +478,7 @@ TEST_CASE("Testing Bitmanip")
     CHECK(Bm_t::to_bool(0u) == false);
     CHECK(Bm_t::to_bool(0x11223341u) == true);
 
-
+    CHECK(Bm_t::get_bit(0x00008000u, 15u) == 1u);
 
 
 

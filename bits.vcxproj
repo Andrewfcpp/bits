@@ -167,6 +167,7 @@
     <ClInclude Include="include\Bitmanip.h" />
     <ClInclude Include="include\Bitparams.h" />
     <ClInclude Include="include\bits.h" />
+    <ClInclude Include="include\Endian.h" />
     <ClInclude Include="tests\tests.h" />
   </ItemGroup>
   <ItemGroup>

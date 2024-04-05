@@ -9,6 +9,7 @@
 #include <cstdint>
 #include <utility>
 
+#include "Endian.h"
 #include "Bitparams.h"
 #include "Bitmanip.h"
 #include "Bithelpers.h"
