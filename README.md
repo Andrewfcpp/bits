@@ -1,4 +1,4 @@
-Useful library for embedded projects. Written on C++17.
+Bit manipulation library for embedded projects. Written on C++17.
 Most funstions is constexpr.
 Included: doctest, assert macros.
 Add "bits/include" folder to your project and use #include "bits.h"
