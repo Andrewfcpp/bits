@@ -79,6 +79,12 @@ int main(/*int argc, char** argv*/)
     //x1 = fav::Bithelpers::fill_lead_zeros<T1>(0x12345678u, 128u);
 
 
+    using T1 = std::uint32_t;
+    T1 x1;
+
+    x1 = fav::Bitmanip<T1>::toggle_bit_ms(0x80000000u);
+    //std::cout << '\n' << x1 << '\n';
+
 
     //constexpr bool endian = fav::Endian::IS_ENDIAN_LITTLE;
     //constexpr auto endian_type = fav::Endian::ENDIAN_TYPE;
