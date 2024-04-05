@@ -570,10 +570,9 @@ namespace fav
         {
             using Bm_t = Bitmanip<T>;
             using Bp_t = Bitparams<T>;
-            //--bitnum;
             if (Bm_t::is_invalid(bitnum)) { return v; }
             T mask = static_cast<T>(1u) << bitnum;
-            --mask; //mask = mask_for<T>(mask);
+            --mask;
             mask = ~mask;
             return v | mask;
         }

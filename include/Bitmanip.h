@@ -25,12 +25,18 @@ namespace fav
 
     public:
         static_assert(std::is_arithmetic<T>::value, "Error! Wrong type. Use arithmetic type.");
-        static_assert(!std::is_same<T, bool>::value, "Error! Boolean type not supported.");
+        //static_assert(!std::is_same<T, bool>::value, "Error! Boolean type not supported.");
 
         using Value_t = T;
         using Size_t = std::size_t;
         using Bp_t = Bitparams<Value_t>;
         using Self_t = Bitmanip;
+
+
+
+        //***********************************************************************/
+        //Boolean functions for "synthetic sugar".
+        //***********************************************************************/
 
 
 
@@ -68,10 +74,6 @@ namespace fav
         /**Get single bit state at position. Returns 0 or 1.*/
         static inline constexpr Value_t get_bit(Value_t v, Size_t bitnum) noexcept
         {
-            //if (is_invalid(bitnum)) { return v; }
-            //v &= (NUM_1 << bitnum);
-            //v >>= bitnum;
-            //return v;
             return is_valid(bitnum) ? ((v & (NUM_1 << bitnum)) >> bitnum) : v;
         }
 
@@ -136,7 +138,6 @@ namespace fav
         returns unchanged value if bitnum is invalid.*/
         static inline constexpr Value_t set_bit(Value_t v, Size_t bitnum) noexcept
         {
-            //if (is_invalid(bitnum)) { return v; }
             return is_valid(bitnum) ? (v | (NUM_1 << bitnum)) : v;
         }
 
@@ -146,14 +147,7 @@ namespace fav
         returns unchanged value if bitnum is invalid.*/
         static inline constexpr Value_t set_bit_state(Value_t v, Size_t bitnum, Value_t state) noexcept
         {
-            //if (is_invalid(bitnum)) { return v; }
-            //state &= NUM_1;
-            //if(state) { v = set_bit(v, bitnum); }
-            //else { v =  clear_bit(v, bitnum); }
-            //return v;
-            // valid ? (state ? set : clear) : v
             return (state & NUM_1) ? set_bit(v, bitnum) : clear_bit(v, bitnum);
-            //return is_valid(bitnum) ? ((state & NUM_1) ? set_bit(v, bitnum) : clear_bit(v, bitnum)) : v;
         }
 
         /*Set less significant bit to 1.
@@ -196,7 +190,6 @@ namespace fav
         returns unchanged value if bitnum is invalid.*/
         static inline constexpr Value_t toggle_bit(Value_t v, Size_t bitnum) noexcept
         {
-            //if (is_invalid(bitnum)) { return v; }
             return is_valid(bitnum) ? (v ^ (NUM_1 << bitnum)) : v;
         }
 
@@ -240,7 +233,6 @@ namespace fav
         returns unchanged value if bitnum is invalid.*/
         static inline constexpr Value_t isolate_bit(Value_t v, Size_t bitnum) noexcept
         {
-            //if (is_invalid(bitnum)) { return v; }
             return is_valid(bitnum) ? (v & (NUM_1 << bitnum)) : v;
         }
 
@@ -287,9 +279,6 @@ namespace fav
         returns unchanged value if bitnum is invalid.*/
         static inline constexpr Value_t clear_bit(Value_t v, Size_t bitnum) noexcept
         {
-            //if (is_invalid(bitnum)) { return v; }
-            //v &= (~(NUM_1 << bitnum));
-            //return v;
             return is_valid(bitnum) ? (v &= (~(NUM_1 << bitnum))) : v;
         }
 
