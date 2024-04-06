@@ -371,16 +371,16 @@ namespace fav
             return ((value & mask) == NUM_0) ? true : false;
         }
 
-        /*Test if any masked bits is set to 0.*/
-        static inline constexpr bool is_clear_any(Value_t value, Value_t mask) noexcept
-        {
-            return ((value & mask) < mask) ? true : false;
-        }
-
         /*Test if any bits is 0.*/
         static inline constexpr bool is_clear_any(Value_t value) noexcept
         {
             return value < Bp_t::MASK_ALL;
+        }
+
+        /*Test if any masked bits is set to 0.*/
+        static inline constexpr bool is_clear_any(Value_t value, Value_t mask) noexcept
+        {
+            return ((value & mask) < mask) ? true : false;
         }
 
         /*Test if less significant bit is 0.*/

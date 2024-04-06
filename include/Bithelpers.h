@@ -33,7 +33,7 @@ namespace fav
         //***********************************************************************/
 
 
-        /*Reverse bits
+        /*Reverse bits.
         0b11110101 value
         0b10101111 return*/
         template<typename T, typename = enable_if_unsigned_t<T>>
@@ -381,7 +381,7 @@ namespace fav
 
 
 
-        /*Round to highest power of 2 */
+        /*Round to highest power of 2. */
         template<typename T, typename = enable_if_unsigned_t<T>>
         static T pow2_highest(T v) noexcept
         {
@@ -392,7 +392,7 @@ namespace fav
 
 
 
-        /*Round to lowest power of 2 */
+        /*Round to lowest power of 2. */
         template<typename T, typename = enable_if_unsigned_t<T>>
         static T pow2_lowest(T v) noexcept
         {
@@ -466,7 +466,7 @@ namespace fav
 
 
 
-        /*Find first lead bit that is set to 1
+        /*Find first lead bit that is set to 1.
         0b00000000 returns >= Bitparams<T>::NUM_BITS = wrong value, bit not found.
         0b00000001 returns 0
         0b00101000 returns 5
@@ -487,7 +487,7 @@ namespace fav
 
 
 
-        /*Find first trail bit that is set to 1
+        /*Find first trail bit that is set to 1.
         0b00000000 returns >= Bitparams<T>::NUM_BITS = wrong value, bit not found.
         0b00000001 returns 0
         0b00101000 returns 3
@@ -504,7 +504,7 @@ namespace fav
 
 
 
-        /*Find first lead bit that is set to 0
+        /*Find first lead bit that is set to 0.
         0b00000000 returns 7
         0b11111110 returns 0
         0b11010111 returns 5
@@ -522,7 +522,7 @@ namespace fav
 
 
 
-        /*Find first trail bit that is set to 0
+        /*Find first trail bit that is set to 0.
         0b00000000 returns 7
         0b11111110 returns 0
         0b11010111 returns 3
@@ -625,7 +625,7 @@ namespace fav
             return{};
         }
 
-        /*Swap uint8_t byte order. Swapping by 4 bits.*/
+        /*Swap uint8_t byte order. Swapped by 4 bits.*/
         template<>
         static inline std::uint8_t swap(std::uint8_t n) noexcept
         {
