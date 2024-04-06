@@ -86,13 +86,13 @@ namespace fav
         Example: uint8 = 128. */
         static constexpr Value_t BIT_VALUE_MS = NUM_1 << BIT_NUM_MS;
 
-        /*Mask all bits.
+        /*All bits set to 1.
         Example: uint8 = 0b11111111. */
         static constexpr Value_t MASK_ALL = ~NUM_0;
 
-        /*Make mask from NUM_BITS.
+        /*Mask from NUM_BITS.
         Example: uint8_t = 0b00000111, range 0 to 7 bits.*/
-        static constexpr Size_t MASK_NUM_BITS = BIT_NUM_MS;
+        static constexpr Value_t MASK_NUM_BITS = BIT_NUM_MS;
 
         /*Mask all but not less significant bit.
         Example: uint8 = 0b11111110. */

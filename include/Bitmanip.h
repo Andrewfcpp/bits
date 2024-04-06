@@ -71,25 +71,25 @@ namespace fav
 
 
 
-        /**Get single bit state at position. Returns 0 or 1.*/
+        /*Get single bit state at position. Returns 0 or 1.*/
         static inline constexpr Value_t get_bit(Value_t v, Size_t bitnum) noexcept
         {
             return is_valid(bitnum) ? ((v & (NUM_1 << bitnum)) >> bitnum) : v;
         }
 
-        /**Get less significant bit state. Returns 0 or 1.*/
+        /*Get less significant bit state. Returns 0 or 1.*/
         static inline constexpr Value_t get_bit_ls(Value_t v) noexcept
         {
             return v & Bp_t::BIT_VALUE_LS;
         }
 
-        /**Get most significant bit state. Returns 0 or 1.*/
+        /*Get most significant bit state. Returns 0 or 1.*/
         static inline constexpr Value_t get_bit_ms(Value_t v) noexcept
         {
             return (v & Bp_t::BIT_VALUE_MS) >> Bp_t::BIT_NUM_MS;
         }
 
-        /*Get masked bits. Same as and(mask).
+        /*Get masked bits. Same as and(v, mask).
         0b10101010 value
         0b00111100 mask
         0b00101000 result */
@@ -98,7 +98,7 @@ namespace fav
             return v & mask;
         }
 
-        /*Bit value.
+        /*Bit value of bitnum.
         bitnum = 0, returns 0b00000001 = 1
         bitnum = 4, returns 0b00010000 = 16
         returns 0b11111111 if bitnum >= NUM_BITS */
@@ -136,7 +136,7 @@ namespace fav
         0b10101010 value, bitnum = 0
         0b10101011 result.
         returns unchanged value if bitnum is invalid.*/
-        static inline constexpr Value_t set_bit(Value_t v, Size_t bitnum) noexcept
+        static inline constexpr Value_t set(Value_t v, Size_t bitnum) noexcept
         {
             return is_valid(bitnum) ? (v | (NUM_1 << bitnum)) : v;
         }
@@ -145,15 +145,15 @@ namespace fav
         0b10101011 value, bitnum = 0, state = 0
         0b10101010 result.
         returns unchanged value if bitnum is invalid.*/
-        static inline constexpr Value_t set_bit_state(Value_t v, Size_t bitnum, Value_t state) noexcept
+        static inline constexpr Value_t set_state(Value_t v, Size_t bitnum, Value_t state) noexcept
         {
-            return (state & NUM_1) ? set_bit(v, bitnum) : clear_bit(v, bitnum);
+            return (state & NUM_1) ? set(v, bitnum) : clear(v, bitnum);
         }
 
         /*Set less significant bit to 1.
         0b10101010 value
         0b10101011 result.*/
-        static inline constexpr Value_t set_bit_ls(Value_t v) noexcept
+        static inline constexpr Value_t set_ls(Value_t v) noexcept
         {
             return v | Bp_t::BIT_VALUE_LS;
         }
@@ -161,7 +161,7 @@ namespace fav
         /*Set most significant bit to 1.
         0b01010101 value
         0b11010101 result.*/
-        static inline constexpr Value_t set_bit_ms(Value_t v) noexcept
+        static inline constexpr Value_t set_ms(Value_t v) noexcept
         {
             return v | Bp_t::BIT_VALUE_MS;
         }
@@ -188,7 +188,7 @@ namespace fav
         0b10101011 result
         0b10101010 repeat.
         returns unchanged value if bitnum is invalid.*/
-        static inline constexpr Value_t toggle_bit(Value_t v, Size_t bitnum) noexcept
+        static inline constexpr Value_t toggle(Value_t v, Size_t bitnum) noexcept
         {
             return is_valid(bitnum) ? (v ^ (NUM_1 << bitnum)) : v;
         }
@@ -197,7 +197,7 @@ namespace fav
         0b10101010 value
         0b10101011 result
         0b10101010 repeat.*/
-        static inline constexpr Value_t toggle_bit_ls(Value_t v) noexcept
+        static inline constexpr Value_t toggle_ls(Value_t v) noexcept
         {
             return v ^ Bp_t::BIT_VALUE_LS;
         }
@@ -206,12 +206,12 @@ namespace fav
         0b01010101 value
         0b11010101 result
         0b01010101 repeat.*/
-        static inline constexpr Value_t toggle_bit_ms(Value_t v) noexcept
+        static inline constexpr Value_t toggle_ms(Value_t v) noexcept
         {
             return v ^ Bp_t::BIT_VALUE_MS;
         }
 
-        /*Toggle masked bits. Same as xor(mask).
+        /*Toggle masked bits. Same as xor(v, mask).
         0b10101010 value
         0b00001111 mask
         0b10100101 result
@@ -231,19 +231,19 @@ namespace fav
         0b10101010 value, bitnum = 1
         0b00000010 result.
         returns unchanged value if bitnum is invalid.*/
-        static inline constexpr Value_t isolate_bit(Value_t v, Size_t bitnum) noexcept
+        static inline constexpr Value_t isolate(Value_t v, Size_t bitnum) noexcept
         {
             return is_valid(bitnum) ? (v & (NUM_1 << bitnum)) : v;
         }
 
         /*Isolate less significant bit.*/
-        static inline constexpr Value_t isolate_bit_ls(Value_t v) noexcept
+        static inline constexpr Value_t isolate_ls(Value_t v) noexcept
         {
             return v & Bp_t::BIT_VALUE_LS;
         }
 
         /*Isolate most significant bit.*/
-        static inline constexpr Value_t isolate_bit_ms(Value_t v) noexcept
+        static inline constexpr Value_t isolate_ms(Value_t v) noexcept
         {
             return v & Bp_t::BIT_VALUE_MS;
         }
@@ -277,7 +277,7 @@ namespace fav
         0b10101010 value, bitnum = 7
         0b00101010 result.
         returns unchanged value if bitnum is invalid.*/
-        static inline constexpr Value_t clear_bit(Value_t v, Size_t bitnum) noexcept
+        static inline constexpr Value_t clear(Value_t v, Size_t bitnum) noexcept
         {
             return is_valid(bitnum) ? (v &= (~(NUM_1 << bitnum))) : v;
         }
@@ -285,7 +285,7 @@ namespace fav
         /*Clear less significant bit.
         0b01010101 value
         0b11010100 result.*/
-        static inline constexpr  Value_t clear_bit_ls(Value_t v) noexcept
+        static inline constexpr  Value_t clear_ls(Value_t v) noexcept
         {
             return v & Bp_t::MASK_BIT_LS;
         }
@@ -293,7 +293,7 @@ namespace fav
         /*Clear most significant bit.
         0b10101010 value
         0b00101011 result.*/
-        static inline constexpr  Value_t clear_bit_ms(Value_t v) noexcept
+        static inline constexpr  Value_t clear_ms(Value_t v) noexcept
         {
             return v & Bp_t::MASK_BIT_MS;
         }

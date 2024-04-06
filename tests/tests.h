@@ -380,31 +380,31 @@ TEST_CASE("Testing Bitmanip")
     CHECK(Bm32_t::get_bit_mask(15u) == 0xFFFF7FFFu);
 
     CHECK(Bm32_t::set_all(0x12345678u) == 0xFFFFFFFFu);
-    CHECK(Bm32_t::set_bit(0x00000000u, 15u) == 0x00008000u);
-    CHECK(Bm32_t::set_bit_state(0x00000000u, 15u, 1u) == 0x00008000u);
-    CHECK(Bm32_t::set_bit_state(0xFFFFFFFFu, 15u, 0u) == 0xFFFF7FFFu);
-    CHECK(Bm32_t::set_bit_ls(0x00000000u) == 0x00000001u);
-    CHECK(Bm32_t::set_bit_ms(0x00000000u) == 0x80000000u);
+    CHECK(Bm32_t::set(0x00000000u, 15u) == 0x00008000u);
+    CHECK(Bm32_t::set_state(0x00000000u, 15u, 1u) == 0x00008000u);
+    CHECK(Bm32_t::set_state(0xFFFFFFFFu, 15u, 0u) == 0xFFFF7FFFu);
+    CHECK(Bm32_t::set_ls(0x00000000u) == 0x00000001u);
+    CHECK(Bm32_t::set_ms(0x00000000u) == 0x80000000u);
     CHECK(Bm32_t::set_masked(0x12345678u, 0x000FF000u) == 0x123FF678u);
 
-    CHECK(Bm32_t::toggle_bit(0x00008000u, 15u) == 0x00000000u);
-    CHECK(Bm32_t::toggle_bit(0x00000000u, 15u) == 0x00008000u);
-    CHECK(Bm32_t::toggle_bit_ls(0x00000000u) == 0x00000001u);
-    CHECK(Bm32_t::toggle_bit_ls(0x00000001u) == 0x00000000u);
-    CHECK(Bm32_t::toggle_bit_ms(0x00000000u) == 0x80000000u);
-    CHECK(Bm32_t::toggle_bit_ms(0x80000000u) == 0x00000000u);
+    CHECK(Bm32_t::toggle(0x00008000u, 15u) == 0x00000000u);
+    CHECK(Bm32_t::toggle(0x00000000u, 15u) == 0x00008000u);
+    CHECK(Bm32_t::toggle_ls(0x00000000u) == 0x00000001u);
+    CHECK(Bm32_t::toggle_ls(0x00000001u) == 0x00000000u);
+    CHECK(Bm32_t::toggle_ms(0x00000000u) == 0x80000000u);
+    CHECK(Bm32_t::toggle_ms(0x80000000u) == 0x00000000u);
     CHECK(Bm32_t::toggle_masked(0x55555555u, 0x000FF000u) == 0x555AA555u);
     CHECK(Bm32_t::toggle_masked(0x555AA555u, 0x000FF000u) == 0x55555555u);
 
-    CHECK(Bm32_t::isolate_bit(0xFFFFFFFFu, 15u) == 0x00008000u);
-    CHECK(Bm32_t::isolate_bit_ls(0xFFFFFFFFu) == 0x00000001u);
-    CHECK(Bm32_t::isolate_bit_ms(0xFFFFFFFFu) == 0x80000000u);
+    CHECK(Bm32_t::isolate(0xFFFFFFFFu, 15u) == 0x00008000u);
+    CHECK(Bm32_t::isolate_ls(0xFFFFFFFFu) == 0x00000001u);
+    CHECK(Bm32_t::isolate_ms(0xFFFFFFFFu) == 0x80000000u);
     CHECK(Bm32_t::isolate_masked(0x12345678u, 0x000FF000u) == 0x00045000u);
 
     CHECK(Bm32_t::clear_all(0x12345678u) == 0x00000000u);
-    CHECK(Bm32_t::clear_bit(0xFFFFFFFFu, 15u) == 0xFFFF7FFFu);
-    CHECK(Bm32_t::clear_bit_ls(0xFFFFFFFFu) == 0xFFFFFFFEu);
-    CHECK(Bm32_t::clear_bit_ms(0xFFFFFFFFu) == 0x7FFFFFFFu);
+    CHECK(Bm32_t::clear(0xFFFFFFFFu, 15u) == 0xFFFF7FFFu);
+    CHECK(Bm32_t::clear_ls(0xFFFFFFFFu) == 0xFFFFFFFEu);
+    CHECK(Bm32_t::clear_ms(0xFFFFFFFFu) == 0x7FFFFFFFu);
     CHECK(Bm32_t::clear_masked(0x12345678u, 0x000FF000u) == 0x12300678u);
 
     CHECK(Bm32_t::is_set_all(0xFFFF7FFFu) == false);
