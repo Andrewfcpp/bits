@@ -72,19 +72,19 @@ namespace fav
 
 
         /*Get single bit state at position. Returns 0 or 1.*/
-        static inline constexpr Value_t get_bit(Value_t v, Size_t bitnum) noexcept
+        static inline constexpr Value_t get(Value_t v, Size_t bitnum) noexcept
         {
             return is_valid(bitnum) ? ((v & (NUM_1 << bitnum)) >> bitnum) : v;
         }
 
         /*Get less significant bit state. Returns 0 or 1.*/
-        static inline constexpr Value_t get_bit_ls(Value_t v) noexcept
+        static inline constexpr Value_t get_ls(Value_t v) noexcept
         {
             return v & Bp_t::BIT_VALUE_LS;
         }
 
         /*Get most significant bit state. Returns 0 or 1.*/
-        static inline constexpr Value_t get_bit_ms(Value_t v) noexcept
+        static inline constexpr Value_t get_ms(Value_t v) noexcept
         {
             return (v & Bp_t::BIT_VALUE_MS) >> Bp_t::BIT_NUM_MS;
         }
@@ -102,7 +102,7 @@ namespace fav
         bitnum = 0, returns 0b00000001 = 1
         bitnum = 4, returns 0b00010000 = 16
         returns 0b11111111 if bitnum >= NUM_BITS */
-        static inline constexpr Value_t get_bit_value(Size_t bitnum) noexcept
+        static inline constexpr Value_t get_value(Size_t bitnum) noexcept
         {
             return is_valid(bitnum) ? (NUM_1 << bitnum) : Bp_t::MASK_ALL;
         }
@@ -111,9 +111,9 @@ namespace fav
         bitnum = 0, returns 0b11111110
         bitnum = 4, returns 0b11101111 
         returns 0b00000000 if bitnum >= NUM_BITS */
-        static inline constexpr Value_t get_bit_mask(Size_t bitnum) noexcept
+        static inline constexpr Value_t get_mask(Size_t bitnum) noexcept
         {
-            return ~(get_bit_value(bitnum));
+            return ~(get_value(bitnum));
         }
 
 
@@ -285,7 +285,7 @@ namespace fav
         /*Clear less significant bit.
         0b01010101 value
         0b11010100 result.*/
-        static inline constexpr  Value_t clear_ls(Value_t v) noexcept
+        static inline constexpr Value_t clear_ls(Value_t v) noexcept
         {
             return v & Bp_t::MASK_BIT_LS;
         }
@@ -293,7 +293,7 @@ namespace fav
         /*Clear most significant bit.
         0b10101010 value
         0b00101011 result.*/
-        static inline constexpr  Value_t clear_ms(Value_t v) noexcept
+        static inline constexpr Value_t clear_ms(Value_t v) noexcept
         {
             return v & Bp_t::MASK_BIT_MS;
         }
@@ -322,10 +322,22 @@ namespace fav
             return value == Bp_t::MASK_ALL;
         }
 
+        /*Test if all masked bits is set to 1.*/
+        static inline constexpr bool is_set_all(Value_t value, Value_t mask) noexcept
+        {
+            return ((value & mask) == mask) ? true : false;
+        }
+
         /*Test if any bit is set to 1.*/
         static inline constexpr bool is_set_any(Value_t value) noexcept
         {
             return value > NUM_0;
+        }
+
+        /*Test if any masked bits is set to 1.*/
+        static inline constexpr bool is_set_any(Value_t value, Value_t mask) noexcept
+        {
+            return ((value & mask) > NUM_0) ? true : false;
         }
 
         /*Test if less significant bit is set to 1.*/
@@ -340,18 +352,6 @@ namespace fav
             return (value & Bp_t::BIT_VALUE_MS) != NUM_0;
         }
 
-        /*Test if all masked bits is set to 1.*/
-        static inline constexpr bool is_set_all_masked(Value_t value, Value_t mask) noexcept
-        {
-            return ((value & mask) == mask) ? true : false;
-        }
-
-        /*Test if any masked bits is set to 1.*/
-        static inline constexpr bool is_set_any_masked(Value_t value, Value_t mask) noexcept
-        {
-            return ((value & mask) > NUM_0) ? true : false;
-        }
-
 
 
         //***********************************************************************/
@@ -362,6 +362,19 @@ namespace fav
         static inline constexpr bool is_clear_all(Value_t value) noexcept
         {
             return value == NUM_0;
+        }
+
+        /*Test if all masked bits is set to 0.*/
+        static inline constexpr bool is_clear_all(Value_t value, Value_t mask) noexcept
+        {
+            //value &= mask;
+            return ((value & mask) == NUM_0) ? true : false;
+        }
+
+        /*Test if any masked bits is set to 0.*/
+        static inline constexpr bool is_clear_any(Value_t value, Value_t mask) noexcept
+        {
+            return ((value & mask) < mask) ? true : false;
         }
 
         /*Test if any bits is 0.*/
@@ -380,19 +393,6 @@ namespace fav
         static inline constexpr bool is_clear_ms(Value_t value) noexcept
         {
             return (value & Bp_t::BIT_VALUE_MS) == NUM_0;
-        }
-
-        /*Test if all masked bits is set to 0.*/
-        static inline constexpr bool is_clear_all_masked(Value_t value, Value_t mask) noexcept
-        {
-            //value &= mask;
-            return ((value & mask) == NUM_0) ? true : false;
-        }
-
-        /*Test if any masked bits is set to 0.*/
-        static inline constexpr bool is_clear_any_masked(Value_t value, Value_t mask) noexcept
-        {
-            return ((value & mask) < mask) ? true : false;
         }
 
 

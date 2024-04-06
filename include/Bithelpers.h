@@ -414,15 +414,15 @@ namespace fav
         0b00000101 result
         returns 0 if bitnum >= NUM_BITS*/
         template<typename T, typename = enable_if_unsigned_t<T>>
-        static T isolate_trail(T value, Size_t bitnum) noexcept
+        static T isolate_trail(T v, Size_t bitnum) noexcept
         {
             using Bm_t = Bitmanip<T>;
             using Bp_t = Bitparams<T>;
             if (Bm_t::is_invalid(bitnum)) { return 0u; }
-            T mask = Bm_t::get_bit_value(bitnum);
+            T mask = Bm_t::get_value(bitnum);
             --mask;
-            value &= mask;
-            return value;
+            v &= mask;
+            return v;
         }
 
         /*Isolate highest part of bits after bitnum.
@@ -431,7 +431,7 @@ namespace fav
         0b10100000 result 
         returns 0 if bitnum >= NUM_BITS*/
         template<typename T, typename = enable_if_unsigned_t<T>>
-        static T isolate_lead(T value, Size_t bitnum) noexcept
+        static T isolate_lead(T v, Size_t bitnum) noexcept
         {
             using Bm_t = Bitmanip<T>;
             using Bp_t = Bitparams<T>;
@@ -439,8 +439,8 @@ namespace fav
             T mask = Bp_t::MASK_ALL;
             ++bitnum;
             mask <<= bitnum;
-            value &= mask;
-            return value;
+            v &= mask;
+            return v;
         }
 
         /*Remove bit from value.
