@@ -52,6 +52,8 @@ void doctest_run()
 //***********************************************************************/
 
 
+
+//Change to 0 for tests.
 #if 0
 TEST_CASE("Testing Bitparams uint8")
 {
@@ -326,7 +328,7 @@ TEST_CASE("Testing Bithelpers")
     }
 
 
-    //Check for 64 bit platform
+//Check for 64 bit platform
 #if INTPTR_MAX == INT64_MAX 
     SUBCASE("Test functions uint64.")
     {
@@ -352,6 +354,20 @@ TEST_CASE("Testing Bithelpers")
 
 #endif
 
+    SUBCASE("Test swap function.")
+    {
+        CHECK(Bh_t::swap<U8_t>(0x12u) == 0x21u);
+        CHECK(Bh_t::swap<U16_t>(0x1234u) == 0x3412u);
+        CHECK(Bh_t::swap<U32_t>(0x12345678u) == 0x78563412u);
+
+
+//Check for 64 bit platform
+#if INTPTR_MAX == INT64_MAX 
+
+        CHECK(Bh_t::swap<U64_t>(0x1234567890ABCDEFu) == 0xEFCDAB9078563412u);
+
+#endif
+    }
 }
 
 

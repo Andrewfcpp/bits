@@ -609,6 +609,55 @@ namespace fav
             return v & mask;
         }
 
+
+
+        //***********************************************************************/
+        //Swap bytes
+        //***********************************************************************/
+
+
+
+        /*Swap byte order.*/
+        template<typename T, typename = enable_if_integral_t<T>>
+        static inline T swap(const T) noexcept
+        {
+            static_assert(0, "Error! Type not implemented.");
+            return{};
+        }
+
+        /*Swap uint8_t byte order. Swapping by 4 bits.*/
+        template<>
+        static inline std::uint8_t swap(std::uint8_t n) noexcept
+        {
+            return (n << 4) | (n >> 4);
+        }
+
+        /*Swap uint16_t byte order.*/
+        template<>
+        static inline std::uint16_t swap(std::uint16_t n) noexcept
+        {
+            return (n << 8) | (n >> 8);
+        }
+
+        /*Swap uint32_t byte order.*/
+        template<>
+        static inline std::uint32_t swap(std::uint32_t n) noexcept
+        {
+            n = ((n << 8) & 0xFF00FF00u) | ((n >> 8) & 0x00FF00FFu);
+            return (n << 16) | (n >> 16);
+        }
+
+        /*Swap uint64_t byte order.*/
+        template<>
+        static inline std::uint64_t swap(std::uint64_t n) noexcept
+        {
+            n = ((n << 8) & 0xFF00FF00FF00FF00ull) | ((n >> 8) & 0x00FF00FF00FF00FFull);
+            n = ((n << 16) & 0xFFFF0000FFFF0000ull) | ((n >> 16) & 0x0000FFFF0000FFFFull);
+            return (n << 32) | (n >> 32);
+        }
+
+
+
     }; //Bithelpers
 
 }//fav
