@@ -163,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="assert_msg.h" />
+    <ClInclude Include="include\Bitcodec.h" />
     <ClInclude Include="include\Bithelpers.h" />
     <ClInclude Include="include\Bitmanip.h" />
     <ClInclude Include="include\Bitparams.h" />

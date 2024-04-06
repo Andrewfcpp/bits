@@ -55,7 +55,7 @@ void doctest_run()
 
 //Change to 0 for tests.
 #if 0
-TEST_CASE("Testing Bitparams uint8")
+TEST_CASE("Testing Bitparams uint8.")
 {
     using Value_t = std::uint8_t;
     using Bp_t = fav::Bitparams<Value_t>;
@@ -96,9 +96,9 @@ TEST_CASE("Testing Bitparams uint8")
 
 }
 
+//***********************************************************************/
 
-
-TEST_CASE("Testing Bitparams uint16")
+TEST_CASE("Testing Bitparams uint16.")
 {
     using Value_t = std::uint16_t;
     using Bp_t = fav::Bitparams<Value_t>;
@@ -141,9 +141,9 @@ TEST_CASE("Testing Bitparams uint16")
 
 #endif
 
+//***********************************************************************/
 
-
-TEST_CASE("Testing Bitparams uint32")
+TEST_CASE("Testing Bitparams uint32.")
 {
     using Value_t = std::uint32_t;
     using Bp_t = fav::Bitparams<Value_t>;
@@ -184,12 +184,12 @@ TEST_CASE("Testing Bitparams uint32")
 
 }
 
-
+//***********************************************************************/
 
 //Check for 64 bit platform
 #if INTPTR_MAX == INT64_MAX 
 
-TEST_CASE("Testing Bitparams uint64")
+TEST_CASE("Testing Bitparams uint64.")
 {
     using Value_t = std::uint64_t;
     using Bp_t = fav::Bitparams<Value_t>;
@@ -232,19 +232,14 @@ TEST_CASE("Testing Bitparams uint64")
 
 #endif //Check 64 bit platform
 
-
-
 //***********************************************************************/
 
-
-
-TEST_CASE("Testing Bithelpers")
+TEST_CASE("Testing Bithelpers.")
 {
     using Bh_t = fav::Bithelpers;
     using U8_t = std::uint8_t;
     using U16_t = std::uint16_t;
     using U32_t = std::uint32_t;
-    using U64_t = std::uint64_t;
 
     CHECK(Bh_t::reverse<U8_t>(0xF1u) == 0x8Fu);
     CHECK(Bh_t::reverse<U16_t>(0xF0F1u) == 0x8F0Fu);
@@ -278,99 +273,96 @@ TEST_CASE("Testing Bithelpers")
     CHECK(Bh_t::find_lead_zero<U32_t>(0xFF0000FFu) == 23u);
     CHECK(Bh_t::find_trail_zero<U32_t>(0xFF0000FFu) == 8u);
     
-    SUBCASE("Test fill functions uint32.")
-    {
-        CHECK(Bh_t::fill_trail_ones<U32_t>(0x00000000u, 0u)   == 0x00000001u);
-        CHECK(Bh_t::fill_trail_ones<U32_t>(0x00000000u, 3u)   == 0x0000000Fu);
-        CHECK(Bh_t::fill_trail_ones<U32_t>(0x00000000u, 15u)  == 0x0000FFFFu);
-        CHECK(Bh_t::fill_trail_ones<U32_t>(0x00000000u, 31u)  == 0xFFFFFFFFu);
-        CHECK(Bh_t::fill_trail_ones<U32_t>(0x00000000u, 128u) == 0xFFFFFFFFu);
+    //***********************************************************************/
 
-        CHECK(Bh_t::fill_trail_ones<U32_t>(0x12345678u, 0u)  == 0x12345679u);
-        CHECK(Bh_t::fill_trail_ones<U32_t>(0x12345678u, 3u)  == 0x1234567Fu);
-        CHECK(Bh_t::fill_trail_ones<U32_t>(0x12345678u, 15u) == 0x1234FFFFu);
-        CHECK(Bh_t::fill_trail_ones<U32_t>(0x12345678u, 31u) == 0xFFFFFFFFu);
+    CHECK(Bh_t::fill_trail_ones<U32_t>(0x00000000u, 0u) == 0x00000001u);
+    CHECK(Bh_t::fill_trail_ones<U32_t>(0x00000000u, 3u) == 0x0000000Fu);
+    CHECK(Bh_t::fill_trail_ones<U32_t>(0x00000000u, 15u) == 0x0000FFFFu);
+    CHECK(Bh_t::fill_trail_ones<U32_t>(0x00000000u, 31u) == 0xFFFFFFFFu);
+    CHECK(Bh_t::fill_trail_ones<U32_t>(0x00000000u, 128u) == 0xFFFFFFFFu);
 
-        CHECK(Bh_t::fill_lead_ones<U32_t>(0x00000000u, 0u)   == 0xFFFFFFFFu);
-        CHECK(Bh_t::fill_lead_ones<U32_t>(0x00000000u, 4u)   == 0xFFFFFFF0u);
-        CHECK(Bh_t::fill_lead_ones<U32_t>(0x00000000u, 16u)  == 0xFFFF0000u);
-        CHECK(Bh_t::fill_lead_ones<U32_t>(0x00000000u, 31u)  == 0x80000000u);
-        CHECK(Bh_t::fill_lead_ones<U32_t>(0x00000000u, 128u) == 0x00000000u);
+    CHECK(Bh_t::fill_trail_ones<U32_t>(0x12345678u, 0u) == 0x12345679u);
+    CHECK(Bh_t::fill_trail_ones<U32_t>(0x12345678u, 3u) == 0x1234567Fu);
+    CHECK(Bh_t::fill_trail_ones<U32_t>(0x12345678u, 15u) == 0x1234FFFFu);
+    CHECK(Bh_t::fill_trail_ones<U32_t>(0x12345678u, 31u) == 0xFFFFFFFFu);
 
-        CHECK(Bh_t::fill_lead_ones<U32_t>(0x12345678u, 0u)   == 0xFFFFFFFFu);
-        CHECK(Bh_t::fill_lead_ones<U32_t>(0x12345678u, 4u)   == 0xFFFFFFF8u);
-        CHECK(Bh_t::fill_lead_ones<U32_t>(0x12345678u, 16u)  == 0xFFFF5678u);
-        CHECK(Bh_t::fill_lead_ones<U32_t>(0x12345678u, 31u)  == 0x92345678u);
-        CHECK(Bh_t::fill_lead_ones<U32_t>(0x12345678u, 128u) == 0x12345678u);
+    CHECK(Bh_t::fill_lead_ones<U32_t>(0x00000000u, 0u) == 0xFFFFFFFFu);
+    CHECK(Bh_t::fill_lead_ones<U32_t>(0x00000000u, 4u) == 0xFFFFFFF0u);
+    CHECK(Bh_t::fill_lead_ones<U32_t>(0x00000000u, 16u) == 0xFFFF0000u);
+    CHECK(Bh_t::fill_lead_ones<U32_t>(0x00000000u, 31u) == 0x80000000u);
+    CHECK(Bh_t::fill_lead_ones<U32_t>(0x00000000u, 128u) == 0x00000000u);
 
-        CHECK(Bh_t::fill_trail_zeros<U32_t>(0xFFFFFFFFu, 0u)   == 0xFFFFFFFEu);
-        CHECK(Bh_t::fill_trail_zeros<U32_t>(0xFFFFFFFFu, 3u)   == 0xFFFFFFF0u);
-        CHECK(Bh_t::fill_trail_zeros<U32_t>(0xFFFFFFFFu, 15u)  == 0xFFFF0000u);
-        CHECK(Bh_t::fill_trail_zeros<U32_t>(0xFFFFFFFFu, 31u)  == 0x00000000u);
-        CHECK(Bh_t::fill_trail_zeros<U32_t>(0xFFFFFFFFu, 128u) == 0x00000000u);
+    CHECK(Bh_t::fill_lead_ones<U32_t>(0x12345678u, 0u) == 0xFFFFFFFFu);
+    CHECK(Bh_t::fill_lead_ones<U32_t>(0x12345678u, 4u) == 0xFFFFFFF8u);
+    CHECK(Bh_t::fill_lead_ones<U32_t>(0x12345678u, 16u) == 0xFFFF5678u);
+    CHECK(Bh_t::fill_lead_ones<U32_t>(0x12345678u, 31u) == 0x92345678u);
+    CHECK(Bh_t::fill_lead_ones<U32_t>(0x12345678u, 128u) == 0x12345678u);
 
-        CHECK(Bh_t::fill_trail_zeros<U32_t>(0x1234567Fu, 0u)  == 0x1234567Eu);
-        CHECK(Bh_t::fill_trail_zeros<U32_t>(0x12345678u, 3u)  == 0x12345670u);
-        CHECK(Bh_t::fill_trail_zeros<U32_t>(0x12345678u, 15u) == 0x12340000u);
-        CHECK(Bh_t::fill_trail_zeros<U32_t>(0x12345678u, 31u) == 0x00000000u);
+    CHECK(Bh_t::fill_trail_zeros<U32_t>(0xFFFFFFFFu, 0u) == 0xFFFFFFFEu);
+    CHECK(Bh_t::fill_trail_zeros<U32_t>(0xFFFFFFFFu, 3u) == 0xFFFFFFF0u);
+    CHECK(Bh_t::fill_trail_zeros<U32_t>(0xFFFFFFFFu, 15u) == 0xFFFF0000u);
+    CHECK(Bh_t::fill_trail_zeros<U32_t>(0xFFFFFFFFu, 31u) == 0x00000000u);
+    CHECK(Bh_t::fill_trail_zeros<U32_t>(0xFFFFFFFFu, 128u) == 0x00000000u);
 
-        CHECK(Bh_t::fill_lead_zeros<U32_t>(0xFFFFFFFFu, 0u)   == 0x00000000u);
-        CHECK(Bh_t::fill_lead_zeros<U32_t>(0xFFFFFFFFu, 4u)   == 0x0000000Fu);
-        CHECK(Bh_t::fill_lead_zeros<U32_t>(0xFFFFFFFFu, 16u)  == 0x0000FFFFu);
-        CHECK(Bh_t::fill_lead_zeros<U32_t>(0xFFFFFFFFu, 31u)  == 0x7FFFFFFFu);
-        CHECK(Bh_t::fill_lead_zeros<U32_t>(0xFFFFFFFFu, 128u) == 0xFFFFFFFFu);
+    CHECK(Bh_t::fill_trail_zeros<U32_t>(0x1234567Fu, 0u) == 0x1234567Eu);
+    CHECK(Bh_t::fill_trail_zeros<U32_t>(0x12345678u, 3u) == 0x12345670u);
+    CHECK(Bh_t::fill_trail_zeros<U32_t>(0x12345678u, 15u) == 0x12340000u);
+    CHECK(Bh_t::fill_trail_zeros<U32_t>(0x12345678u, 31u) == 0x00000000u);
 
-        CHECK(Bh_t::fill_lead_zeros<U32_t>(0x12345678u, 0u)   == 0x00000000u);
-        CHECK(Bh_t::fill_lead_zeros<U32_t>(0x12345678u, 4u)   == 0x00000008u);
-        CHECK(Bh_t::fill_lead_zeros<U32_t>(0x12345678u, 16u)  == 0x00005678u);
-        CHECK(Bh_t::fill_lead_zeros<U32_t>(0xF2345678u, 31u)  == 0x72345678u);
-        CHECK(Bh_t::fill_lead_zeros<U32_t>(0x12345678u, 128u) == 0x12345678u);
-    }
+    CHECK(Bh_t::fill_lead_zeros<U32_t>(0xFFFFFFFFu, 0u) == 0x00000000u);
+    CHECK(Bh_t::fill_lead_zeros<U32_t>(0xFFFFFFFFu, 4u) == 0x0000000Fu);
+    CHECK(Bh_t::fill_lead_zeros<U32_t>(0xFFFFFFFFu, 16u) == 0x0000FFFFu);
+    CHECK(Bh_t::fill_lead_zeros<U32_t>(0xFFFFFFFFu, 31u) == 0x7FFFFFFFu);
+    CHECK(Bh_t::fill_lead_zeros<U32_t>(0xFFFFFFFFu, 128u) == 0xFFFFFFFFu);
 
+    CHECK(Bh_t::fill_lead_zeros<U32_t>(0x12345678u, 0u) == 0x00000000u);
+    CHECK(Bh_t::fill_lead_zeros<U32_t>(0x12345678u, 4u) == 0x00000008u);
+    CHECK(Bh_t::fill_lead_zeros<U32_t>(0x12345678u, 16u) == 0x00005678u);
+    CHECK(Bh_t::fill_lead_zeros<U32_t>(0xF2345678u, 31u) == 0x72345678u);
+    CHECK(Bh_t::fill_lead_zeros<U32_t>(0x12345678u, 128u) == 0x12345678u);
 
-//Check for 64 bit platform
-#if INTPTR_MAX == INT64_MAX 
-    SUBCASE("Test functions uint64.")
-    {
-        CHECK(Bh_t::reverse<U64_t>(0xF0F0FF00FF00FFF1ull) == 0x8FFF00FF00FF0F0Full);
-        CHECK(Bh_t::mask_for<U64_t>(0x0102030405060708ull) == 0x01FFFFFFFFFFFFFFull);
-        CHECK(Bh_t::count_pop<U64_t>(0x0000000000000001ull) == 1u);
-        CHECK(Bh_t::count_pop<U64_t>(0x5555555555555555ull) == 32u);
-        CHECK(Bh_t::count_zeros<U64_t>(0xF0F0F0F0F0F0F0F0ull) == 32u);
-        CHECK(Bh_t::count_lead_zeros<U64_t>(0x0FFFFFFFFFFFFFFFull) == 4u);
-        CHECK(Bh_t::count_trail_zeros<U64_t>(0xF000000000000000ull) == 60u);
-        CHECK(Bh_t::count_lead_ones<U64_t>(0xF00000000000F000ull) == 4u);
-        CHECK(Bh_t::count_trail_ones<U64_t>(0xF00000000000000Full) == 4u);
-        CHECK(Bh_t::pow2_highest<U64_t>(0x0000000000030000ull) == 262144u); //0x40000
-        CHECK(Bh_t::pow2_lowest<U64_t>(0x0000000000030000ull) == 131072u); //0x20000
-        CHECK(Bh_t::isolate_trail<U64_t>(0x1122334455667788ull, 31) == 0x0000000055667788ull);
-        CHECK(Bh_t::isolate_lead<U64_t>(0x1122334455667788ull, 31) == 0x1122334400000000ull);
-        CHECK(Bh_t::remove_bit<U64_t>(0x1122334455667788ull, 31) == 0x089119A255667788ull);
-        CHECK(Bh_t::find_lead_one<U64_t>(0x0000F00000000000ull) == 47u);
-        CHECK(Bh_t::find_trail_one<U64_t>(0x0000F00000000000ull) == 44u);
-        CHECK(Bh_t::find_lead_zero<U64_t>(0xFFFF00000000FFFFull) == 47u);
-        CHECK(Bh_t::find_trail_zero<U64_t>(0xFFFF00000000FFFFull) == 16u);
-    }
+    //***********************************************************************/
 
-#endif
+    CHECK(Bh_t::swap<U8_t>(0x12u) == 0x21u);
+    CHECK(Bh_t::swap<U16_t>(0x1234u) == 0x3412u);
+    CHECK(Bh_t::swap<U32_t>(0x12345678u) == 0x78563412u);
 
-    SUBCASE("Test swap function.")
-    {
-        CHECK(Bh_t::swap<U8_t>(0x12u) == 0x21u);
-        CHECK(Bh_t::swap<U16_t>(0x1234u) == 0x3412u);
-        CHECK(Bh_t::swap<U32_t>(0x12345678u) == 0x78563412u);
-
-
-//Check for 64 bit platform
-#if INTPTR_MAX == INT64_MAX 
-
-        CHECK(Bh_t::swap<U64_t>(0x1234567890ABCDEFu) == 0xEFCDAB9078563412u);
-
-#endif
-    }
 }
 
+//***********************************************************************/
 
+#if INTPTR_MAX == INT64_MAX //Check for 64 bit platform
+
+TEST_CASE("Testing Bithelpers uint64.")
+{
+    using Bh_t = fav::Bithelpers;
+    using U64_t = std::uint64_t;
+
+    CHECK(Bh_t::reverse<U64_t>(0xF0F0FF00FF00FFF1ull) == 0x8FFF00FF00FF0F0Full);
+    CHECK(Bh_t::mask_for<U64_t>(0x0102030405060708ull) == 0x01FFFFFFFFFFFFFFull);
+    CHECK(Bh_t::count_pop<U64_t>(0x0000000000000001ull) == 1u);
+    CHECK(Bh_t::count_pop<U64_t>(0x5555555555555555ull) == 32u);
+    CHECK(Bh_t::count_zeros<U64_t>(0xF0F0F0F0F0F0F0F0ull) == 32u);
+    CHECK(Bh_t::count_lead_zeros<U64_t>(0x0FFFFFFFFFFFFFFFull) == 4u);
+    CHECK(Bh_t::count_trail_zeros<U64_t>(0xF000000000000000ull) == 60u);
+    CHECK(Bh_t::count_lead_ones<U64_t>(0xF00000000000F000ull) == 4u);
+    CHECK(Bh_t::count_trail_ones<U64_t>(0xF00000000000000Full) == 4u);
+    CHECK(Bh_t::pow2_highest<U64_t>(0x0000000000030000ull) == 262144u); //0x40000
+    CHECK(Bh_t::pow2_lowest<U64_t>(0x0000000000030000ull) == 131072u); //0x20000
+    CHECK(Bh_t::isolate_trail<U64_t>(0x1122334455667788ull, 31) == 0x0000000055667788ull);
+    CHECK(Bh_t::isolate_lead<U64_t>(0x1122334455667788ull, 31) == 0x1122334400000000ull);
+    CHECK(Bh_t::remove_bit<U64_t>(0x1122334455667788ull, 31) == 0x089119A255667788ull);
+    CHECK(Bh_t::find_lead_one<U64_t>(0x0000F00000000000ull) == 47u);
+    CHECK(Bh_t::find_trail_one<U64_t>(0x0000F00000000000ull) == 44u);
+    CHECK(Bh_t::find_lead_zero<U64_t>(0xFFFF00000000FFFFull) == 47u);
+    CHECK(Bh_t::find_trail_zero<U64_t>(0xFFFF00000000FFFFull) == 16u);
+
+    CHECK(Bh_t::swap<U64_t>(0x1234567890ABCDEFu) == 0xEFCDAB9078563412u);
+}
+
+#endif
+
+//***********************************************************************/
 
 TEST_CASE("Testing Bitmanip")
 {
@@ -458,31 +450,97 @@ TEST_CASE("Testing Bitmanip")
     CHECK(Bm32_t::is_even(0xFFFFFFFFu) == false);
     CHECK(Bm32_t::is_even(0xFFFFFFFEu) == true);
 
-    SUBCASE("Test special functions.")
-    {
-        CHECK(Bm32_t::to_bool(0x00000000u) == false);
-        CHECK(Bm32_t::to_bool(0x12345678u) == true);
+    CHECK(Bm32_t::to_bool(0x00000000u) == false);
+    CHECK(Bm32_t::to_bool(0x12345678u) == true);
 
-        CHECK(Bm32_t::advance(0u) == 0u);
-        CHECK(Bm32_t::advance(31u) == 31u);
-        CHECK(Bm32_t::advance(32u) == 0u);
-        CHECK(Bm32_t::advance(33u) == 1u);
+    CHECK(Bm32_t::advance(0u) == 0u);
+    CHECK(Bm32_t::advance(31u) == 31u);
+    CHECK(Bm32_t::advance(32u) == 0u);
+    CHECK(Bm32_t::advance(33u) == 1u);
 
-        Value_t a = 0x12345678u;
-        Value_t b = 0x87654321u;
-        Bm32_t::swap(a, b);
-        CHECK(a == 0x87654321u);
-        CHECK(b == 0x12345678u);
-    }
-
-    //Check for 64 bit platform
-#if INTPTR_MAX == INT64_MAX 
-
-
-
-#endif
+    Value_t a = 0x12345678u;
+    Value_t b = 0x87654321u;
+    Bm32_t::swap(a, b);
+    CHECK(a == 0x87654321u);
+    CHECK(b == 0x12345678u);
 
 }
+
+//***********************************************************************/
+
+TEST_CASE("Testing Codec_4bit.")
+{
+    using U8_t = std::uint8_t;
+    using U16_t = std::uint16_t;
+    using U32_t = std::uint32_t;
+    using U64_t = std::uint64_t;
+
+    CHECK(fav::Codec_4bit<U8_t>::decode(0x0Fu) == 0x0Fu);
+    CHECK(fav::Codec_4bit<U16_t>::decode(0x0F0Fu) == 0x00FFu);
+    CHECK(fav::Codec_4bit<U32_t>::decode(0x0F0F0F0Fu) == 0x0000FFFFu);
+
+    CHECK(fav::Codec_4bit<U8_t>::encode(0x0Fu) == 0x0Fu);
+    CHECK(fav::Codec_4bit<U16_t>::encode(0x00FFu) == 0x0F0Fu);
+    CHECK(fav::Codec_4bit<U32_t>::encode(0x0000FFFFu) == 0x0F0F0F0Fu);
+
+#if INTPTR_MAX == INT64_MAX //Check for 64 bit platform
+
+    CHECK(fav::Codec_4bit<U64_t>::decode(0x0F0F0F0F0F0F0F0Full) == 0x00000000FFFFFFFFull);
+    CHECK(fav::Codec_4bit<U64_t>::encode(0x00000000FFFFFFFFull) == 0x0F0F0F0F0F0F0F0Full);
+
+#endif
+}
+
+//***********************************************************************/
+
+TEST_CASE("Testing Codec_7bit.")
+{
+    using U8_t = std::uint8_t;
+    using U16_t = std::uint16_t;
+    using U32_t = std::uint32_t;
+    using U64_t = std::uint64_t;
+
+    CHECK(fav::Codec_7bit<U8_t>::decode(0x7Fu) == 0x7Fu);
+    CHECK(fav::Codec_7bit<U16_t>::decode(0x7F7Fu) == 0x3FFFu);
+    CHECK(fav::Codec_7bit<U32_t>::decode(0x7F7F7F7Fu) == 0x0FFFFFFFu);
+
+    CHECK(fav::Codec_7bit<U8_t>::encode(0x7Fu) == 0x7Fu);
+    CHECK(fav::Codec_7bit<U16_t>::encode(0x3FFFu) == 0x7F7Fu);
+    CHECK(fav::Codec_7bit<U32_t>::encode(0x0FFFFFFFu) == 0x7F7F7F7Fu);
+
+#if INTPTR_MAX == INT64_MAX //Check for 64 bit platform
+
+    CHECK(fav::Codec_7bit<U64_t>::decode(0x7F7F7F7F7F7F7F7Full) == 0x00FFFFFFFFFFFFFFull);
+    CHECK(fav::Codec_7bit<U64_t>::encode(0x00FFFFFFFFFFFFFFull) == 0x7F7F7F7F7F7F7F7Full);
+
+#endif
+}
+
+//***********************************************************************/
+
+TEST_CASE("Testing Codec_bcd.")
+{
+    using U8_t = std::uint8_t;
+    using U16_t = std::uint16_t;
+    using U32_t = std::uint32_t;
+    using U64_t = std::uint64_t;
+
+    CHECK(fav::Codec_bcd<U8_t>::decode(0x12u) == 12u);
+    CHECK(fav::Codec_bcd<U16_t>::decode(0x1234u) == 1234u);
+    CHECK(fav::Codec_bcd<U32_t>::decode(0x12345678u) == 12345678u);
+
+    CHECK(fav::Codec_bcd<U8_t>::encode(12u) == 0x12u);
+    CHECK(fav::Codec_bcd<U16_t>::encode(1234u) == 0x1234u);
+    CHECK(fav::Codec_bcd<U32_t>::encode(12345678u) == 0x12345678u);
+
+#if INTPTR_MAX == INT64_MAX //Check for 64 bit platform
+
+    CHECK(fav::Codec_bcd<U64_t>::decode(0x1122334455667788ull) == 1122334455667788ull);
+    CHECK(fav::Codec_bcd<U64_t>::encode(1122334455667788ull) == 0x1122334455667788ull);
+
+#endif
+}
+
 
 
 #endif

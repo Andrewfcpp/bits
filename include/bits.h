@@ -13,6 +13,7 @@
 #include "Bitparams.h"
 #include "Bitmanip.h"
 #include "Bithelpers.h"
+#include "Bitcodec.h"
 
 
 
