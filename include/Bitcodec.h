@@ -215,7 +215,25 @@ namespace fav
 
 
 
-    /*Binary coded decimal converter.*/
+    /*Codec_bcd (Binary Coded Decimal).
+    Codec_bcd<value_type>::decode(value) example:
+    uint8  0x12               -> 12u
+    uint16 0x1234             -> 1234u
+    uint32 0x12345678         -> 12345678u
+    uint64 0x1122334455667788 -> 1122334455667788ull.
+
+    Codec_bcd<value_type>::encode(value) example:
+    uint8  12u                 -> 0x12             
+    uint16 1234u               -> 0x1234           
+    uint32 12345678u           -> 0x12345678        
+    uint64 1122334455667788ull -> 0x1122334455667788.
+
+    Using example:
+    using Value_t = std::uint32_t;
+    using Codec_t = Codec_bcd<Value_t>;
+    Value_t a1 = 0x12345678u;
+    a1 = Codec_t::decode(a1); //a1 = 12345678u;
+    a1 = Codec_t::encode(a1); //a1 = 0x12345678u;*/
     template<typename T>
     class Codec_bcd
     {
