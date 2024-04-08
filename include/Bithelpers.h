@@ -449,13 +449,13 @@ namespace fav
         0b01010010 result
         returns 0 if bitnum >= NUM_BITS*/
         template<typename T, typename = enable_if_unsigned_t<T>>
-        static T remove_bit(T value, Size_t bitnum) noexcept
+        static T remove_bit(T v, Size_t bitnum) noexcept
         {
-            T a = isolate_trail<T>(value, bitnum);
-            T b = isolate_lead<T>(value, bitnum);
+            T a = isolate_trail<T>(v, bitnum);
+            T b = isolate_lead<T>(v, bitnum);
             b >>= 1;
-            value = a | b;
-            return value;
+            v = a | b;
+            return v;
         }
 
 

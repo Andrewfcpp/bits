@@ -317,39 +317,39 @@ namespace fav
 
 
         /*Test if all bit is set to 1.*/
-        static inline constexpr bool is_set_all(Value_t value) noexcept
+        static inline constexpr bool is_set_all(Value_t v) noexcept
         {
-            return value == Bp_t::MASK_ALL;
+            return v == Bp_t::MASK_ALL;
         }
 
         /*Test if all masked bits is set to 1.*/
-        static inline constexpr bool is_set_all(Value_t value, Value_t mask) noexcept
+        static inline constexpr bool is_set_all(Value_t v, Value_t mask) noexcept
         {
-            return ((value & mask) == mask) ? true : false;
+            return ((v & mask) == mask) ? true : false;
         }
 
         /*Test if any bit is set to 1.*/
-        static inline constexpr bool is_set_any(Value_t value) noexcept
+        static inline constexpr bool is_set_any(Value_t v) noexcept
         {
-            return value > NUM_0;
+            return v > NUM_0;
         }
 
         /*Test if any masked bits is set to 1.*/
-        static inline constexpr bool is_set_any(Value_t value, Value_t mask) noexcept
+        static inline constexpr bool is_set_any(Value_t v, Value_t mask) noexcept
         {
-            return ((value & mask) > NUM_0) ? true : false;
+            return ((v & mask) > NUM_0) ? true : false;
         }
 
         /*Test if less significant bit is set to 1.*/
-        static inline constexpr bool is_set_ls(Value_t value) noexcept
+        static inline constexpr bool is_set_ls(Value_t v) noexcept
         {
-            return (value & Bp_t::BIT_VALUE_LS) != NUM_0;
+            return (v & Bp_t::BIT_VALUE_LS) != NUM_0;
         }
 
         /*Test if most significant bit is set to 1.*/
-        static inline constexpr bool is_set_ms(Value_t value) noexcept
+        static inline constexpr bool is_set_ms(Value_t v) noexcept
         {
-            return (value & Bp_t::BIT_VALUE_MS) != NUM_0;
+            return (v & Bp_t::BIT_VALUE_MS) != NUM_0;
         }
 
 
@@ -359,40 +359,40 @@ namespace fav
 
 
         /*Test if all bits is 0.*/
-        static inline constexpr bool is_clear_all(Value_t value) noexcept
+        static inline constexpr bool is_clear_all(Value_t v) noexcept
         {
-            return value == NUM_0;
+            return v == NUM_0;
         }
 
         /*Test if all masked bits is set to 0.*/
-        static inline constexpr bool is_clear_all(Value_t value, Value_t mask) noexcept
+        static inline constexpr bool is_clear_all(Value_t v, Value_t mask) noexcept
         {
             //value &= mask;
-            return ((value & mask) == NUM_0) ? true : false;
+            return ((v & mask) == NUM_0) ? true : false;
         }
 
         /*Test if any bits is 0.*/
-        static inline constexpr bool is_clear_any(Value_t value) noexcept
+        static inline constexpr bool is_clear_any(Value_t v) noexcept
         {
-            return value < Bp_t::MASK_ALL;
+            return v < Bp_t::MASK_ALL;
         }
 
         /*Test if any masked bits is set to 0.*/
-        static inline constexpr bool is_clear_any(Value_t value, Value_t mask) noexcept
+        static inline constexpr bool is_clear_any(Value_t v, Value_t mask) noexcept
         {
-            return ((value & mask) < mask) ? true : false;
+            return ((v & mask) < mask) ? true : false;
         }
 
         /*Test if less significant bit is 0.*/
-        static inline constexpr bool is_clear_ls(Value_t value) noexcept
+        static inline constexpr bool is_clear_ls(Value_t v) noexcept
         {
-            return (value & Bp_t::BIT_VALUE_LS) == NUM_0;
+            return (v & Bp_t::BIT_VALUE_LS) == NUM_0;
         }
 
         /*Test if most significant bit is 0.*/
-        static inline constexpr bool is_clear_ms(Value_t value) noexcept
+        static inline constexpr bool is_clear_ms(Value_t v) noexcept
         {
-            return (value & Bp_t::BIT_VALUE_MS) == NUM_0;
+            return (v & Bp_t::BIT_VALUE_MS) == NUM_0;
         }
 
 
@@ -425,22 +425,25 @@ namespace fav
             return bitnum == Bp_t::BIT_NUM_MS;
         }
 
-
+        static inline constexpr bool is_pow2 (Value_t v)
+        {
+            return (v & (v - 1)) == 0;
+        }
 
         //***********************************************************************/
 
 
 
         /*Test if value is odd.*/
-        static inline constexpr bool is_odd(Value_t value) noexcept
+        static inline constexpr bool is_odd(Value_t v) noexcept
         {
-            return (value & NUM_1) == NUM_0 ? false : true;
+            return (v & NUM_1) == NUM_0 ? false : true;
         }
 
         /*Test if value is even.*/
-        static inline constexpr bool is_even(Value_t value) noexcept
+        static inline constexpr bool is_even(Value_t v) noexcept
         {
-            return !is_odd(value);
+            return !is_odd(v);
         }
 
 
