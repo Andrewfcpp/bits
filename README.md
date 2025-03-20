@@ -1,5 +1,7 @@
 Single header bit manipulation library for embedded projects.
 
+C++ 17 used.
+
 All functions commented in header file with examples.
 
 Using:
