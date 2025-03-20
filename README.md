@@ -2,7 +2,7 @@ Single header bit manipulation library for embedded projects.
 
 C++ 17 used.
 
-All functions commented in header file with examples.
+All functions commented with examples in header file.
 
 Using:
 Add "bits/include" folder to your project and use #include "bits.h"
