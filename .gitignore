@@ -1,0 +1,13 @@
+.vs/
+.visualgdb/
+
+[Xx]64/
+[Xx]86/
+[Bb]uild/
+[Dd]ebug/
+[Rr]elease/
+
+# *.vcxproj
+
+*.vcxproj.filters
+*.vcxproj.user
